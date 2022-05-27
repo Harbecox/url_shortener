@@ -39,6 +39,6 @@ class UrlController extends Controller
                 "device" => $device
             ]);
         }
-        return redirect($url);
+        //return redirect($url);
     }
 }

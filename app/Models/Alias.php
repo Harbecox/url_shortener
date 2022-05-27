@@ -16,4 +16,8 @@ class Alias extends Model
         "url",
         "subject_id"
     ];
+
+    function visits(){
+        return $this->hasMany(Visit::class,"alias","alias");
+    }
 }
