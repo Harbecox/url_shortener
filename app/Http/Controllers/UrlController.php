@@ -13,7 +13,7 @@ use Stevebauman\Location\Facades\Location;
 class UrlController extends Controller
 {
     function index($alias){
-        $url_obj = Alias::query()->where("alias",$alias)->get()->first();
+        $url_obj = Alias::query()->where("alias",$alias)->firstOrFail();
         $url = $url_obj['url'];
         $ip = R::ip();
         $is_unique = !Visit::query()->where("alias",$alias)
@@ -39,6 +39,6 @@ class UrlController extends Controller
                 "device" => $device
             ]);
         }
-        //return redirect($url);
+        return redirect($url);
     }
 }

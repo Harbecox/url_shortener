@@ -1,0 +1,30 @@
+.text-ellipsis{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.t-row{
+    padding: 10px 0;
+}
+
+.t-row:nth-child(odd){
+    background-color: #eee;
+}
+
+#share-modal .modal-body #qrcode img{
+    width: 200px;
+    height: 200px;
+}
+
+#share-modal .modal-body .share-button{
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin: 2px;
+    cursor: pointer;
+}

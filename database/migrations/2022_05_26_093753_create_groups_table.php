@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id")->index();
             $table->string("title",256);
             $table->text("description")->nullable();
             $table->boolean("is_active")->default(true);

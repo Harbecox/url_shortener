@@ -13,4 +13,12 @@ class Url extends Model
         "group_id",
         "user_id",
     ];
+
+    function alias(){
+        return $this->hasOne(Alias::class,"subject_id","id")->where("type","url");
+    }
+
+    function group(){
+        return $this->belongsTo(Group::class,"group_id","id");
+    }
 }

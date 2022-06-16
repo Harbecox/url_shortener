@@ -17,20 +17,25 @@ class VisitSeeder extends Seeder
      */
     public function run()
     {
-        $browsers = array_keys(Agent::getBrowsers());
-        $os = array_keys(Agent::getPlatforms());
-        $devises = ['desktop','robot','phone'];
-
         $faker = Factory::create();
+
+        $browsers = array_slice(array_keys(Agent::getBrowsers()),0,6);
+        $os = array_slice(array_keys(Agent::getPlatforms()),0,6);
+        $devises = ['desktop','robot','phone'];
+        $referers = [];
+        for($i=0;$i<10;$i++){
+            $referers[] = $faker->url();
+        }
+
         $aliases = Alias::all();
         foreach ($aliases as $alias){
             $visits = [];
-            for($i=0;$i<rand(10,1000);$i++){
+            for($i=0;$i<rand(10,100);$i++){
                 $date = $faker->dateTimeBetween("-3 days");
                 $visits[] = [
                     "country_code" => $faker->countryCode(),
                     "ip" => $faker->ipv4(),
-                    "referer" => $faker->url(),
+                    "referer" => $faker->randomElement($referers),
                     "browser" => $faker->randomElement($browsers),
                     "os" => $faker->randomElement($os),
                     "device" => $faker->randomElement($devises),

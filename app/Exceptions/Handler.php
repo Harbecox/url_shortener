@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\ItemNotFoundException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -43,8 +48,25 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->reportable(function (ItemNotFoundException $e) {
+            return throw new \App\Exceptions\ItemNotFoundException($e);
+        });
+
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => 'Unknown API Method'
+                ], 404);
+            }
         });
     }
+
+    public function render($request, Exception|Throwable $e)
+    {
+        if ($e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+            return throw new \App\Exceptions\API\MethodNotAllowedException();
+        }
+        return parent::render($request, $e);
+    }
+
 }

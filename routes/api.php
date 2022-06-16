@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::prefix("links")->group(function (){
+    Route::get("/",[\App\Http\Controllers\Api\LinkController::class,"index"]);
+    Route::post("/",[\App\Http\Controllers\Api\LinkController::class,"store"]);
+    Route::delete("{alias}",[\App\Http\Controllers\Api\LinkController::class,"index"]);
 });
+
+Route::resource("groups", \App\Http\Controllers\Api\GroupController::class);
+

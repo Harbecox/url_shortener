@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Alias;
 use App\Models\Url;
+use App\Models\User;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,6 +19,9 @@ class UrlSeeder extends Seeder
      */
     public function run()
     {
+//        $users = User::all()->map(function ($user){
+//            return $user->id;
+//        })->toArray();
         $faker = Factory::create();
         $chars = [];
         foreach( range('a', 'z') as $char) {
@@ -27,7 +31,7 @@ class UrlSeeder extends Seeder
             $chars[] = $char;
         }
         shuffle($chars);
-        for($i=0;$i<1000;$i++){
+        for($i=0;$i<345;$i++){
             $alias = "";
             for($j=0;$j<5;$j++){
                 $index = ($i / pow(36,$j) % 36);
@@ -36,7 +40,7 @@ class UrlSeeder extends Seeder
                 $alias = $char.$alias;
             }
             $url = Url::create([
-                "user_id" => rand(1,10000),
+                "user_id" => 1,
             ]);
             Alias::create([
                 "alias" => $alias,
@@ -44,6 +48,5 @@ class UrlSeeder extends Seeder
                 "subject_id" => $url->id
             ]);
         }
-
     }
 }
