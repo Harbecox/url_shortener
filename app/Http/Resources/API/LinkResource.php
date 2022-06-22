@@ -25,7 +25,9 @@ class LinkResource extends JsonResource
             ->where("type","url")
             ->withCount("visits")
             ->first();
-
+        if(!$url){
+            return $this->id;
+        }
         $svg = $qrGenerator->size(300)->generate(route("url",$url->alias))->toHtml();
         $group = Group::query()
             ->where("id",$this->group_id)

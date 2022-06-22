@@ -52,10 +52,10 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <div class="row">
+                <div class="row mb-2 d-md-flex d-none">
                     <div class="col-md-4 col-sm-12 text-bold">URL</div>
                     <div class="col-md-2 col-sm-12 text-bold">Переходы</div>
-                    <div class="col-md-2 col-sm-12 text-bold">Дата</div>
+                    <div class="col-md-2 col-sm-12 text-bold d-md-none d-lg-block">Дата</div>
                     <div class="col-md-1 col-sm-12 text-bold">Группа</div>
                 </div>
                 @foreach($urls as $url)
@@ -64,9 +64,9 @@
                             <a target="_blank" href="{{ route("url",$url['alias']) }}">{{ route("url",$url['alias']) }}</a>
                             <div class="text-sm text-ellipsis">{{ $url['url'] }}</div>
                         </div>
-                        <div class="col-md-2">{{ $url['visit'] }}</div>
-                        <div class="col-md-2">{{ \Carbon\Carbon::make($url['created_at'])->format("Y-m-d") }}</div>
-                        <div class="col-md-1">@if($url['group_title']) {{ $url['group_title'] }} @else <i class="fas fa-minus text-danger"></i> @endif</div>
+                        <div class="col-md-2"><div class="d-inline d-md-none">Переходы: </div> {{ $url['visit'] }}</div>
+                        <div class="col-md-2"><div class="d-inline d-md-none">Дата: </div> {{ \Carbon\Carbon::make($url['created_at'])->format("Y-m-d") }}</div>
+                        <div class="col-md-1 d-none d-md-block">@if($url['group_title']) {{ $url['group_title'] }} @else <i class="fas fa-minus text-danger"></i> @endif</div>
                         <div class="col-md-3">
                             <div class="d-flex">
                                 <a data-toggle="tooltip" title="Копировать" data-url="{{ route("url",$url['alias']) }}" class="btn btn-outline-warning ml-1 urlCopyButton"><i class="fas fa-copy"></i></a>
@@ -127,7 +127,7 @@
                             <button class="urlCopyButton input-group-text"><i class="fas fa-copy"></i></button>
                         </div>
                     </div>
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-4">
                         <span data-sharer="vk" class="share-button" style="background-color: #07f"><i class="fab fa-vk"></i></span>
                         <span data-sharer="facebook" class="share-button" style="background-color: #3b5998"><i class="fab fa-facebook-f"></i></span>
                         <span data-sharer="whatsapp" class="share-button" style="background-color: #65bc54"><i class="fab fa-whatsapp"></i></span>
@@ -136,7 +136,7 @@
                         <span data-sharer="twitter" class="share-button" style="background-color: #00aced"><i class="fab fa-twitter"></i></span>
                         <span data-sharer="okru" class="share-button" style="background-color: #eb722e"><i class="fab fa-odnoklassniki"></i></span>
                     </div>
-                    <div id="qrcode"></div>
+                    <div id="qrcode" class="mb-4"></div>
                 </div>
             </div>
             <!-- /.modal-content -->

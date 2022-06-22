@@ -1,8 +1,47 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+.card-title{
+    margin: 0;
+}
 
-// Variables
-@import 'variables';
+.sidebar-collapse{
+    .main-sidebar{
+        .lb{
+            display: none;
+        }
+        .ls{
+            display: block;
+        }
+    }
+}
+.main-sidebar{
+    .lb{
+        display: block;
+        min-width: 250px;
+    }
+    .ls{
+        display: none;
+        min-width: 250px;
+    }
+}
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+.share-button{
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 3px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.text-ellipsis{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.border-radius{
+    border-radius: 0.25rem;
+}

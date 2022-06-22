@@ -182,15 +182,14 @@
                 }else{
                     color = color.toString(16);
                 }
-                console.log(count," - ",color);
+                //console.log(count," - ",color);
                 color = "#" + color + color + color;
                 let elem = document.getElementById("jqvmap1_" + code);
                 if(elem){
                     elem.setAttribute("fill", color);
                 }
-
             }
-        }, 500);
+        }, 1000);
 
         let colors = ['#39cccc', '#605ca8', '#6610f2', '#3c8dbc', '#3d9970', '#001f3f', '#e83e8c', '#d81b60', '#ff851b', '#01ff70']
 

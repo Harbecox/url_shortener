@@ -26,8 +26,8 @@
     <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
-    <script src="path/to/sharer.min.js"></script>
     <link rel="stylesheet" href="/plugins/toastr/toastr.css">
+    <link rel="stylesheet" href="/css/lib.css">
     <link rel="stylesheet" href="/css/app.css">
 
 </head>
@@ -36,7 +36,7 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+        <img class="animation__shake" src="/logo_small.png" alt="AdminLTELogo" height="60" width="60">
     </div>
 
     <!-- Navbar -->
@@ -51,10 +51,18 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Navbar Search -->
-            <li class="nav-item">
-                <a class="nav-link" href="#" role="button">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
                     {{ \Illuminate\Support\Facades\Auth::user()->name }}
                 </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li><a class="dropdown-item" href="{{ route("dashboard") }}">Dashboard</a></li>
+                    <li>
+                        <a href="#" onclick="document.getElementById('logout_form').submit()" class="dropdown-item">
+                            Выйти
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </nav>
@@ -63,10 +71,15 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="{{ route("dashboard") }}" class="brand-link">
-            <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <a href="{{ route("dashboard") }}" style="min-height: 57px;" class="brand-link bg-white lb">
+            <img src="/logo_big.png"class="brand-image"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light d-block"></span>
+        </a>
+        <a href="{{ route("dashboard") }}" style="min-height: 57px;" class="brand-link bg-white ls">
+            <img src="/logo_small.png"class="brand-image"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light d-block"></span>
         </a>
 
         <!-- Sidebar -->
@@ -147,10 +160,10 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+        <strong>Copyright &copy; 2022 <a href="{{ route("dashboard") }}">Urlbit.ru</a>.</strong>
         All rights reserved.
         <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.2.0
+
         </div>
     </footer>
 

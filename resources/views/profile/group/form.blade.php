@@ -8,7 +8,7 @@
                     @csrf
                     @method($method)
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-md-8 col-12">
                             <div class="form-group">
                                 <label for="input_title">Название<a href="#" class="ml-1" data-toggle="tooltip"
                                                                     title="Название группы"><i
@@ -17,7 +17,7 @@
                                        placeholder="Введите название группы">
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-md-4">
                             <div class="form-group">
                                 <label for="input_alias">Алиас<a href="#" class="ml-1" data-toggle="tooltip"
                                                                  title="Алиас ссылки для группы. Например, {{ url('/') }}/new_group"><i

@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests\API;
+namespace App\Http\Requests\Api;
 
-use App\Models\Alias;
 use App\Rules\AliasRule;
 use App\Rules\GroupOwnerRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LinkStoreRequest extends FormRequest
+class GroupStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,9 +26,10 @@ class LinkStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "url" => ['required'],
+            "title" => ['required'],
             "alias" => ['min:4','max:10',new AliasRule],
-            "group_id" => ['nullable',new GroupOwnerRule],
+            "is_active" => ['boolean'],
+            "is_rotation" => ['boolean'],
         ];
     }
 }

@@ -26,7 +26,7 @@ class UrlStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "url" => ['required'],
+            "url" => ['required','url'],
             "alias" => [new AliasRule],
             "group_id" => [new GroupOwnerRule]
         ];

@@ -7,6 +7,7 @@ use App\Http\Requests\API\LinkStoreRequest;
 use App\Http\Resources\API\LinkResource;
 use App\Models\Alias;
 use App\Models\Url;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,6 @@ class LinkController extends ApiController
         $limit = $request->get("limit", 25);
         $offset = $request->get("offset", 0);
         $group_id = $request->get("group_id", NULL);
-        $count = 0;
         if ($group_id) {
             $count = $this->user->url_objs()->where("group_id", $group_id)->count();
             $links = $this->user->url_objs()->where("group_id", $group_id)->limit($limit)->offset($offset)->get();
@@ -25,9 +25,9 @@ class LinkController extends ApiController
             $count = $this->user->url_objs()->count();
             $links = $this->user->url_objs()->limit($limit)->offset($offset)->get();
         }
-        $response['count'] = $count;
-        $response['limit'] = $limit;
-        $response['offset'] = $offset;
+        $response['count'] = intval($count);
+        $response['limit'] = intval($limit);
+        $response['offset'] = intval($offset);
         $response['links'] = LinkResource::collection($links);
         return $this->response($response);
     }
@@ -35,8 +35,11 @@ class LinkController extends ApiController
     function store(LinkStoreRequest $request)
     {
         $data = $request->validated();
-        if (!$data['alias']) {
+        if (!isset($data['alias'])) {
             $data['alias'] = Alias::createUnique();
+        }
+        if(!isset($data['group_id'])){
+            $data['group_id'] = null;
         }
         if ($data['group_id'] == 0) {
             $data['group_id'] = null;
@@ -60,7 +63,13 @@ class LinkController extends ApiController
 
     function destroy($alias)
     {
-
+        $alias = Auth::user()->urls()->where("alias",$alias)->firstOrFail();
+        Url::query()->where("id",$alias->subject_id)->delete();
+        $alias->delete();
+        return $this->response(
+            [],
+            200,
+            'Link successfully deleted');
     }
 
 }

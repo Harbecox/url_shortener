@@ -6,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-4 col-12 mt-4">
                 <div class="mb-2 bt-2 text-center">
-                    <img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="100" width="100">
+                    <img class="animation__shake" src="logo_small.png" alt="AdminLTELogo" height="100" width="100">
                 </div>
                 <h1 class="text-center">Добро пожаловать!</h1>
                 <p class="text-center mb-4">Зарегистрируйтесь и воспользуйтесь всеми возможностями нашего сервиса</p>

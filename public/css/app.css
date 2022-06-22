@@ -1,30 +1,42 @@
-.text-ellipsis{
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+.card-title {
+  margin: 0;
 }
 
-.t-row{
-    padding: 10px 0;
+.sidebar-collapse .main-sidebar .lb {
+  display: none;
+}
+.sidebar-collapse .main-sidebar .ls {
+  display: block;
 }
 
-.t-row:nth-child(odd){
-    background-color: #eee;
+.main-sidebar .lb {
+  display: block;
+  min-width: 250px;
+}
+.main-sidebar .ls {
+  display: none;
+  min-width: 250px;
 }
 
-#share-modal .modal-body #qrcode img{
-    width: 200px;
-    height: 200px;
+.share-button {
+  color: #fff;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 3px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-#share-modal .modal-body .share-button{
-    color: #fff;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    margin: 2px;
-    cursor: pointer;
+.text-ellipsis {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.border-radius {
+  border-radius: 0.25rem;
 }

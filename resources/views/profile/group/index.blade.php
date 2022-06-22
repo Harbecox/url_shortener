@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-body">
                 <a class="btn btn-outline-info mb-2" href="{{ route("dashboard.group.create") }}"><i class="fas fa-plus"></i></a>
-                <div class="row">
+                <div class="row d-none d-md-flex">
                     <div class="col-md-2 col-sm-12 text-bold">Название</div>
                     <div class="col-md-2 col-sm-12 text-bold">Ссылки</div>
                     <div class="col-md-2 col-sm-12 text-bold">Переходы</div>
@@ -14,12 +14,12 @@
                     <div class="col-md-2 col-sm-12 text-bold"></div>
                 </div>
                 @foreach($groups as $group)
-                    <div class="row">
-                        <div class="col-md-2"><a target="_blank" href="{{ route("url",$group->alias->alias) }}">{{ $group->alias->alias }}</a></div>
-                        <div class="col-md-2">{{ $group->urls()->count() }}</div>
-                        <div class="col-md-2">{{ $group->alias->visits()->count() }}</div>
-                        <div class="col-md-2">@if($group->is_active) <i class="fas fa-check text-success"></i> @else <i class="fas fa-minus text-danger"></i> @endif</div>
-                        <div class="col-md-2">@if($group->is_rotation) <i class="fas fa-check text-success"></i> @else <i class="fas fa-minus text-danger"></i> @endif</div>
+                    <div class="row t-row">
+                        <div class="col-md-2"><a target="_blank" href="{{ route("url",$group->alias->alias) }}">{{ $group->title }}</a></div>
+                        <div class="col-md-2"><div class="d-inline d-md-none">Ссылки: </div>{{ $group->urls()->count() }}</div>
+                        <div class="col-md-2"><div class="d-inline d-md-none">Переходы: </div>{{ $group->alias->visits()->count() }}</div>
+                        <div class="col-md-2"><div class="d-inline d-md-none">Активность: </div>@if($group->is_active) <i class="fas fa-check text-success"></i> @else <i class="fas fa-minus text-danger"></i> @endif</div>
+                        <div class="col-md-2"><div class="d-inline d-md-none">Ротация: </div>@if($group->is_rotation) <i class="fas fa-check text-success"></i> @else <i class="fas fa-minus text-danger"></i> @endif</div>
                         <div class="col-md-2">
                             <div class="d-flex">
                                 <a href="{{ route("dashboard.group.edit",$group->id) }}" class="btn btn-outline-primary ml-1"><i class="fas fa-pen"></i></a>

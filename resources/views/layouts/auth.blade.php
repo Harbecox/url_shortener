@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
-    <script src="path/to/sharer.min.js"></script>
     <link rel="stylesheet" href="/plugins/toastr/toastr.css">
     <link rel="stylesheet" href="/css/app.css">
 </head>
