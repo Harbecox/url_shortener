@@ -15,7 +15,8 @@ class Alias extends Model
         "alias",
         "url",
         "type",
-        "subject_id"
+        "subject_id",
+        "created_at"
     ];
 
     function visits(){

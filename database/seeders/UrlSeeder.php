@@ -19,34 +19,22 @@ class UrlSeeder extends Seeder
      */
     public function run()
     {
-//        $users = User::all()->map(function ($user){
-//            return $user->id;
-//        })->toArray();
         $faker = Factory::create();
-        $chars = [];
-        foreach( range('a', 'z') as $char) {
-            $chars[] = $char;
-        }
-        foreach( range('0', '9') as $char) {
-            $chars[] = $char;
-        }
-        shuffle($chars);
-        for($i=0;$i<345;$i++){
-            $alias = "";
-            for($j=0;$j<5;$j++){
-                $index = ($i / pow(36,$j) % 36);
-                $char = $chars[$index];
-                $char = $faker->boolean() ? strtoupper($char) : $char;
-                $alias = $char.$alias;
+        $users = User::query()->select(['id'])->where("role", "user")->get();
+        foreach ($users as $user) {
+            for($i = 0;$i < rand(10,5000);$i++){
+                $alias = Alias::createUnique();
+                $url = Url::create([
+                    "user_id" => $user->id,
+                    "created_at" => $faker->dateTimeBetween("-45 days")
+                ]);
+                Alias::create([
+                    "alias" => $alias,
+                    "url" => $faker->url(),
+                    "subject_id" => $url->id,
+                    "created_at" => $faker->dateTimeBetween("-45 days")
+                ]);
             }
-            $url = Url::create([
-                "user_id" => 1,
-            ]);
-            Alias::create([
-                "alias" => $alias,
-                "url" => $faker->url(),
-                "subject_id" => $url->id
-            ]);
         }
     }
 }

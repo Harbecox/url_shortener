@@ -16,6 +16,7 @@ class Group extends Model
         "description",
         "is_active",
         "is_rotation",
+        "created_at"
     ];
 
     function alias(){

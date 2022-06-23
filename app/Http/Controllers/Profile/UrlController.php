@@ -28,7 +28,8 @@ class UrlController extends Controller
         $order_by = $request->get("order_by");
         $sort = $request->get("sort");
 
-        $sql =  "select groups.title as group_title, urls.*,count(visits.id) as visit,aliases.alias as alias,aliases.url as url from urls ".
+        $sql =  "select groups.title as group_title, urls.*,count(visits.id) as visit,aliases.alias as alias,aliases.url as url".
+                " from urls ".
                 " JOIN aliases on aliases.subject_id = urls.id and aliases.type = 'url' ".
                 " LEFT JOIN visits on visits.alias = aliases.alias ".
                 " LEFT JOIN `groups` on `groups`.id = urls.group_id ".
@@ -142,11 +143,11 @@ class UrlController extends Controller
 
     public function destroy($alias)
     {
-        $alias = Alias::query()->where("alias",$alias)->first();
+        $alias = Alias::query()->where("alias",$alias)->firstOrFail();
         $alias->visits()->delete();
         Url::query()->where("id",$alias->subject_id)->delete();
         Alias::query()->where("alias",$alias)->delete();
-        return response()->redirectToRoute("dashboard.url.index");
+        return back();
     }
 
     public function paginate($items, $perPage = 20, $page = null,$path)

@@ -12,6 +12,7 @@ class Url extends Model
     protected $fillable = [
         "group_id",
         "user_id",
+        "created_at"
     ];
 
     function alias(){

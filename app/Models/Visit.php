@@ -17,5 +17,6 @@ class Visit extends Model
         "browser",
         "os",
         "device",
+        "created_at"
     ];
 }
