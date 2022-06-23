@@ -111,7 +111,7 @@
                 <h5>Required parameters:</h5>
                 <p><b>alias </b><span class="text-danger"> String</span> URL to be shortened</p>
                 <h5>Optional parameters:</h5>
-                <p><b>alias </b><span class="text-danger"> String</span> This value will be displayed as an identifier. For example for "cool" alias, the short link will look like this - https://goo.su/cool. Max length 10 characters. By default, the alias will be randomly generated.</p>
+                <p><b>alias </b><span class="text-danger"> String</span> This value will be displayed as an identifier. For example for "cool" alias, the short link will look like this - {{ URL::to('/') }}/cool. Max length 10 characters. By default, the alias will be randomly generated.</p>
                 <p><b>is_public</b><span class="text-danger"> Boolean</span> By choosing the PUBLIC type, the link may be available to other Internet users. If you want the link to be private, set the value to Personal. By default value is TRUE</p>
                 <p><b>password </b><span class="text-danger"> STRING</span> Set a password to protect your links from unauthorized access. By default this value is NULL.</p>
                 <p><b>group_id</b><span class="text-danger"> INTEGER</span> The id of one of your groups. By setting the identifier, the created link will be available among other links within the group. By default this value is NULL.</p>
@@ -120,7 +120,7 @@
                 <div class="bg-dark border-radius">
                     <pre class="text-white m-0">
 curl --request POST \
-    --url https://goo.su/api/links/create \
+    --url {{ URL::to('/') }}/api/links/create \
     --header 'content-type: application/json' \
     --header 'x-goo-api-token: XXXXXX' \
     --data '{
@@ -148,10 +148,10 @@ curl --request POST \
             "name": "Test Group",
             "short": "wow",
             "description": "Description of the group",
-            "url": "https://goo.su/g/wow"
+            "url": "{{ URL::to('/') }}/g/wow"
         }
     },
-    "short_url": "https://goo.su/cool",
+    "short_url": "{{ URL::to('/') }}/cool",
     "qr": {
         "base64": "iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAd2KE6QAAAGPSURBVGje7ZpdroQgDIV5Y9m4ZHbQ64iUU/7u43TIIcag8+nE1LanxRB0RLnHvb+nqU4mg9hPYe+mh8NN3vs8m+R21fsTMTeYMSjaNFqgu7bOiXnG0D0TseOwnZ/mz03Knphz7GPxHFY2bc5eMEjQ84BP7FsYaiSc/CuluvxLzCc2FcDPEBwZYng054l5wMbKJYFr69ZhqQTzEs+J+cbUrCOWalJuyVexOiHmBHt9E3UR2vdhmqdrRs7EXGO91h0x24kq+qo5clVcxLxgM6WUsjk0TSfQUULMHzZvNYzaWKtUeCX69yQT84Whb2JAbidrtdvqX8zIp2DXEU/6GtE2jlaYpuYErwf+BTEXWJdJMcOCodXuqr7ENhILQMwVtlx+tR0M49GqvoSYF2xUQTulFALWubt+IzFP2NymNjuLzKukA7DriCc1a22y7fDHxTcw4/rdz2LXcU+6D7lGMolZyyPmF9OSZ4Nh5avrO6t0TMwHNmkPxl5uaZRO2awCEPs+NkTjDpuvsIfWmBJivrA/OACaB5gWD2cAAAAASUVORK5CYII="
     }
@@ -182,7 +182,7 @@ curl --request POST \
                 <h4>Request example:</h4>
                 <div class="bg-dark border-radius">
                     <pre class="text-white m-0">
-curl --header 'X-Goo-Api-Token: XXXXXXX' 'https://goo.su/api/links?limit=2&offset=3&group_id=2'</pre>
+curl --header 'X-Goo-Api-Token: XXXXXXX' '{{ URL::to('/') }}/api/links?limit=2&offset=3&group_id=2'</pre>
                 </div>
                 <h4>Response example:</h4>
                 <div class="bg-dark border-radius">
@@ -203,7 +203,7 @@ curl --header 'X-Goo-Api-Token: XXXXXXX' 'https://goo.su/api/links?limit=2&offse
                 "name": "Test Group",
                 "short": "wow",
                 "description": "Description of the group",
-                "url": "https://goo.su/g/wow"
+                "url": "{{ URL::to('/') }}/g/wow"
             },
             "short_url": "https://goo.local/A",
             "qr": {
@@ -220,7 +220,7 @@ curl --header 'X-Goo-Api-Token: XXXXXXX' 'https://goo.su/api/links?limit=2&offse
                 "name": "Test Group",
                 "short": "wow",
                 "description": "Description of the group",
-                "url": "https://goo.su/g/wow"
+                "url": "{{ URL::to('/') }}/g/wow"
             },
             "short_url": "https://goo.local/p",
             "qr": {
@@ -289,14 +289,14 @@ curl --request POST \
 
                 <h5>Optional parameters:</h5>
                 <p><b>description<span class="text-danger"> String</span></b> Group description. Default NULL</p>
-                <p><b>alias<span class="text-danger"> String</span></b> This value will be displayed as an identifier. For example for "super" alias, link to new group will look like this - https://goo.su/g/super. Max length 10 characters. By default, the alias will be randomly generated.</p>
+                <p><b>alias<span class="text-danger"> String</span></b> This value will be displayed as an identifier. For example for "super" alias, link to new group will look like this - {{ URL::to('/') }}/g/super. Max length 10 characters. By default, the alias will be randomly generated.</p>
                 <p><b>is_active<span class="text-danger"> Boolean</span></b> Whether this link group is publicly viewable. By default value is TRUE</p>
                 <p><b>is_rotation<span class="text-danger"> Boolean</span></b> If set, the above URL will redirect to a random link from the group instead of displaying all links belonging to the group. By default value is FALSE</p>
                 <h4>Request example:</h4>
                 <div class="bg-dark border-radius">
                     <pre class="text-white m-0">
 curl --request POST \
-  --url https://goo.su/api/groups/create \
+  --url {{ URL::to('/') }}/api/groups/create \
   --header 'content-type: application/json' \
   --header 'x-goo-api-token: XXXXXX' \
   --data '{
@@ -346,7 +346,7 @@ curl --request POST \
                 <div class="bg-dark border-radius">
                     <pre class="text-white m-0">
 curl --request GET \
-  --url https://goo.su/api/groups \
+  --url {{ URL::to('/') }}/api/groups \
   --header 'token: XXXXX'
                     </pre>
                 </div>
@@ -390,7 +390,7 @@ curl --request GET \
                 <div class="bg-dark border-radius">
                     <pre class="text-white m-0">
 curl --request POST \
-  --url https://goo.su/api/groups/delete/3 \
+  --url {{ URL::to('/') }}/api/groups/delete/3 \
   --header 'content-type: application/json' \
   --header 'x-goo-api-token: XXXXX'
                     </pre>
@@ -406,13 +406,6 @@ curl --request POST \
 }
                     </pre>
                 </div>
-
-
-
-
-
-
-
             </div>
         </div>
 

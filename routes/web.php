@@ -37,4 +37,6 @@ Route::prefix("admin")->middleware(["auth","admin"])->group(function (){
 
 Auth::routes();
 
+Route::post("/",[\App\Http\Controllers\IndexController::class,"create"])->name("create");
+Route::get("/",[\App\Http\Controllers\IndexController::class, 'index'])->name("index");
 Route::get('/{alias}',[\App\Http\Controllers\UrlController::class,'index'])->name("url");

@@ -18,7 +18,7 @@ class UrlController extends Controller
         $ip = R::ip();
         $is_unique = !Visit::query()->where("alias",$alias)
             ->where("ip",$ip)->exists();
-        if($is_unique){
+        if($is_unique && $url_obj->subject_id > 0){
             $referer = R::header("referer");
             $position = Location::get($ip);
             $country_code = "";
