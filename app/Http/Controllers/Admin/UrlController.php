@@ -23,8 +23,21 @@ class UrlController extends Controller
         $group_id = $request->get("group_id",null);
         $date_start = $request->get("date_start",Carbon::now()->subDays(30));
         $date_end = $request->get("date_end",Carbon::now());
+        $url = trim($request->get("url",null));
+        if(strlen($url) < 3){
+            $url = null;
+        }
+        $data['url'] = $url;
 
         $query = Url::query();
+
+        if($url){
+            $subject_ids = Alias::query()->select(['subject_id'])->where("url","LIKE","%".$url."%")
+                ->where("type","url")->get()->map(function ($al){
+                    return $al->subject_id;
+                })->toArray();
+            $query = $query->whereIn("id",$subject_ids);
+        }
 
         if($user_id > 0){
             $query = $query->where("user_id",$user_id);
@@ -39,6 +52,11 @@ class UrlController extends Controller
             $query = $query->whereDate("created_at","<=",$date_end);
         }
 
+        if($request->has("url")){
+            $q_url = trim($request->get("url"));
+            $q_url = strlen($q_url) > 0 ? $q_url : null;
+        }
+
         $urls = $query->paginate(25)->withQueryString();
 
         $ids = [];
@@ -50,7 +68,11 @@ class UrlController extends Controller
             $group_ids[] = $url->group_id;
         }
 
-        $aliases_q = Alias::query()->whereIn("subject_id",$ids)->where("type","url")->get();
+        $aliases_q = Alias::query()
+            ->whereIn("subject_id",$ids)
+            ->where("type","url")
+            ->get();
+
 
         $aliases = $aliases_q->map(function ($a){
             return $a->alias;
@@ -75,10 +97,10 @@ class UrlController extends Controller
 
         $data['user_id'] = $user_id;
         $data['urls'] = $urls;
+
         $data['users'] = User::query()->where("role","user")->select(['name','email','id'])->get();
         $data['date_start'] = Carbon::make($date_start)->toDateString();
         $data['date_end'] = Carbon::make($date_end)->toDateString();
-
         return view("admin.url.index",$data);
     }
 

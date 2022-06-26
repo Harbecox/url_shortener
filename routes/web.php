@@ -33,6 +33,18 @@ Route::prefix("admin")->middleware(["auth","admin"])->group(function (){
         Route::get("/block/{id}",[\App\Http\Controllers\Admin\UserController::class,"block"])->name("admin.user.block");
         Route::get("/unblock/{id}",[\App\Http\Controllers\Admin\UserController::class,"unblock"])->name("admin.user.unblock");
     });
+    Route::prefix("meta")->group(function (){
+        Route::get("/",[\App\Http\Controllers\Admin\MetaController::class,"index"])->name("admin.meta.index");
+        Route::post("/",[\App\Http\Controllers\Admin\MetaController::class,"create"])->name("admin.meta.create");
+        Route::delete("{id}",[\App\Http\Controllers\Admin\MetaController::class,"delete"])->name("admin.meta.delete");
+    });
+    Route::prefix("config")->group(function (){
+        Route::get("/",[\App\Http\Controllers\Admin\ConfigController::class,'index'])->name("admin.config.index");
+        Route::post("/add_word",[\App\Http\Controllers\Admin\ConfigController::class,'add_word'])->name("admin.config.add_word");
+        Route::get("/del_word/{id}",[\App\Http\Controllers\Admin\ConfigController::class,'del_word'])->name("admin.config.del_word");
+        Route::post("/api_save",[\App\Http\Controllers\Admin\ConfigController::class,"api_save"])->name("admin.config.api_save");
+        Route::post("/mass_delete",[\App\Http\Controllers\Admin\ConfigController::class,"mass_delete"])->name("admin.config.mass_delete");
+    });
 });
 
 Auth::routes();

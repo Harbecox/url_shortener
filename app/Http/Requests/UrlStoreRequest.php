@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\AliasRule;
 use App\Rules\GroupOwnerRule;
+use App\Rules\UrlRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UrlStoreRequest extends FormRequest
@@ -26,7 +27,7 @@ class UrlStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "url" => ['required','url'],
+            "url" => ['required','url',new UrlRule],
             "alias" => [new AliasRule],
             "group_id" => [new GroupOwnerRule]
         ];

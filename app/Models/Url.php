@@ -22,4 +22,8 @@ class Url extends Model
     function group(){
         return $this->belongsTo(Group::class,"group_id","id");
     }
+
+    function user(){
+        return $this->belongsTo(User::class,"user_id","id");
+    }
 }

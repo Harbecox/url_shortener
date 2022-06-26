@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>{{ request()->get("meta")['title'] ?? "UrlBit" }}</title>
+    <meta name="description" content="{{ request()->get("meta")['title'] ?? 'Shorten the long link absolutely free. Using the link shortening service, you can conveniently shorten a long url' }}">
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"

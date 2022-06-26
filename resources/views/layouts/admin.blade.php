@@ -102,6 +102,18 @@
                             <p>Пользователи</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route("admin.meta.index") }}" class="nav-link @if(Route::is('admin.meta*')) active @endif">
+                            <i class="fas fa-pager pr-1"></i>
+                            <p>Meta</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route("admin.config.index") }}" class="nav-link @if(Route::is('admin.config*')) active @endif">
+                            <i class="fas fa-cogs pr-1"></i>
+                            <p>Config</p>
+                        </a>
+                    </li>
 {{--                    <li class="nav-item">--}}
 {{--                        <a href="{{ route("dashboard.url.create") }}" class="nav-link @if(Route::is('dashboard.url.create')) active @endif">--}}
 {{--                            <i class="fas fa-plus-circle pr-1"></i>--}}

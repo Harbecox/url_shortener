@@ -57,3 +57,15 @@ footer{
         }
     }
 }
+
+.word_item{
+    padding: 4px 10px;
+    border:1px solid #555;
+    border-radius: 0.25rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    .del{
+        color: inherit;
+        text-decoration: none;
+    }
+}

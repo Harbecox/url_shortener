@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>UrlBit</title>
-
+    <title>{{ request()->get("meta")['title'] ?? "UrlBit" }}</title>
+    <meta name="description" content="{{ request()->get("meta")['title'] ?? 'Shorten the long link absolutely free. Using the link shortening service, you can conveniently shorten a long url' }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -60,7 +60,9 @@
         </nav>
     </div>
 </header>
-@yield("content")
+<div style="min-height: calc(100vh - 350px)">
+    @yield("content")
+</div>
 
 
 @yield("script")

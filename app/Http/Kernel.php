@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ApiMiddleware;
+use App\Http\Middleware\PageMetaMiddleware;
 use App\Http\Middleware\UserBlockedMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -39,6 +40,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            PageMetaMiddleware::class
         ],
 
         'api' => [

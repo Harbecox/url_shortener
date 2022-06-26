@@ -4,9 +4,9 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <form action="#" method="get" class="container" id="url_filter">
+                <form action="{{ route("admin.url") }}" method="get" class="container" id="url_filter">
                     <div class="row">
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="form-group w-100 m-0 mb-2">
                                 <select name="user_id" class="form-control select2">
                                     <option value="0" @if($user_id == 0) selected @endif>All</option>
@@ -14,6 +14,11 @@
                                         <option @if($user->id == $user_id) selected @endif value="{{ $user->id }}">{{ $user->name }} - {{ $user->email }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <div class="form-group w-100 m-0 mb-2">
+                                <input type="text" placeholder="url" value="{{ $url ?? null }}" name="url" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
@@ -41,10 +46,6 @@
             <div class="card-body">
                 <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     <div class="row">
-                        <div class="col-sm-12 col-md-6"></div>
-                        <div class="col-sm-12 col-md-6"></div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-12">
                             <table id="example2" class="table table-bordered table-hover dataTable dtr-inline"
                                    aria-describedby="example2_info">
@@ -52,8 +53,8 @@
                                 <tr>
                                     <th>#ID</th>
                                     <th>User</th>
-                                    <th>Short url</th>
-                                    <th>Group</th>
+                                    <th>Url</th>
+                                    <th>Alias</th>
                                     <th>Visits</th>
                                     <th>Created at</th>
                                     <th style="text-align: right">Actions</th>
@@ -64,8 +65,8 @@
                                     <tr>
                                         <td>{{ $url->id }}</td>
                                         <td><a href="#" onclick="fbu({{ $url->user->id }})">{{ $url->user->name }}</a></td>
-                                        <td><a target="_blank" href="{{ route("url",$url->alias) }}">{{ route("url",$url->alias) }}</a></td>
-                                        <td>{{ $url->group->title ?? " - " }}</td>
+                                        <td><a target="_blank" href="{{ $url->url }}">{{ $url->url }}</a></td>
+                                        <td><a target="_blank" href="{{ route("url",$url->alias) }}" >{{ route("url",$url->alias) }}</a></td>
                                         <td><a href="{{ route("admin.url.show",$url->alias) }}">{{ $url->visits }}</a></td>
                                         <td>{{ $url->created_at }}</td>
                                         <td>
@@ -83,7 +84,7 @@
                                 <tr>
                                     <th>#ID</th>
                                     <th>User</th>
-                                    <th>Alias</th>
+                                    <th>Url</th>
                                     <th>Group</th>
                                     <th>Visits</th>
                                     <th>Created at</th>

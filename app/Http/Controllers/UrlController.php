@@ -14,6 +14,9 @@ class UrlController extends Controller
 {
     function index($alias){
         $url_obj = Alias::query()->where("alias",$alias)->firstOrFail();
+        if($url_obj->url_obj->user->blocked){
+            abort("404");
+        }
         $url = $url_obj['url'];
         $ip = R::ip();
         $is_unique = !Visit::query()->where("alias",$alias)

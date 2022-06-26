@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\UrlRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UrlGurstRequest extends FormRequest
+class PageMetaCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +25,7 @@ class UrlGurstRequest extends FormRequest
     public function rules()
     {
         return [
-            "url" => ['required','url',new UrlRule],
-        ];
-    }
-
-    function messages()
-    {
-        return [
-            "url" => "Ссылка не валидна или запрещена"
+            "page" => Rule::unique("page_metas")
         ];
     }
 }
