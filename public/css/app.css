@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 .card-title {
   margin: 0;
 }
@@ -39,4 +43,8 @@
 
 .border-radius {
   border-radius: 0.25rem;
+}
+
+footer .menu .menu_item {
+  font-size: 20px;
 }

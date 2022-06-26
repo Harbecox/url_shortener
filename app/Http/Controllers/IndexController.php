@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\EmailRequest;
+use App\Http\Requests\UrlGurstRequest;
+use App\Mail\Feedback;
 use App\Models\Alias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Mail;
 
 class IndexController extends Controller
 {
@@ -16,7 +20,7 @@ class IndexController extends Controller
         return view("index",$data);
     }
 
-    function create(Request $request){
+    function create(UrlGurstRequest $request){
         $urls = json_decode(Cookie::get("urls","[]"),true);
         $alias = new Alias();
         $alias['alias'] = Alias::createUnique();
@@ -31,5 +35,19 @@ class IndexController extends Controller
         $urls[] = $url;
         Cookie::queue("urls",json_encode($urls));
         return back();
+    }
+
+    function feedbackForm(){
+        return view("feedback");
+    }
+
+    function sendEmail(EmailRequest $request){
+        Mail::to("harbecox@gmail.com")
+            ->send(new Feedback($request->all()));
+        return back()->with("success","Ваше письмо отправлено");
+    }
+
+    function policy(){
+        return view("policy");
     }
 }

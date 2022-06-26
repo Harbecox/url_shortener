@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+
     function index(){
         $user = Auth::user();
         $urls = $user->urls;

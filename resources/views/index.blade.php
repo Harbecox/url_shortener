@@ -40,39 +40,41 @@
         </div>
     @endif
     <div class="container my-3">
-        <h1 class="text-center text-bold">Lorem ipsum dolor sit amet, consectetur adipisicing.</h1>
-        <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta distinctio eveniet obcaecati perspiciatis quisquam ullam voluptatibus! Alias aspernatur ex voluptate.</p>
         <div class="row">
+            <div class="col-md-10 col-12 offset-md-1">
+                <h1 class="text-center text-bold">Средство для сокращения ссылок, поддерживающее ваш бренд</h1>
+                <p class="mb-4 text-center">Ваш бренд был создан не для того, чтобы его скрывали. Выделите его с помощью фирменных ссылок, которые могут привлечь больше посетителей на сайт.</p>
+            </div>
             <div class="col-md-4 col-12">
-                <div class="card">
-                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-start">
                         <div class="d-flex justify-content-center align-items-center bg-light p-3 mb-2" style="border-radius: 50%">
                             <i class="fa fa-link" aria-hidden="true"></i>
                         </div>
-                        <h3 class="text-bold">Lorem ipsum dolor.</h3>
-                        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci deleniti ea eos facere molestiae nisi odio praesentium quidem velit vero! Aliquam autem consequuntur culpa est expedita incidunt maiores minima nulla omnis optio quas qui quia quo similique totam, velit veritatis.</p>
+                        <h4 class="text-bold">Сокращение URL и ссылок</h4>
+                        <p class="text-center">Бесплатный настраиваемый- Сокращение URL и ссылок-с множеством функций, который дает вам лучшее качества для сокращения ссылок. Сокращенные URL-адреса никогда не истекают. Мы не показываем рекламуво время прямого перенаправления на исходный URL.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-12">
-                <div class="card">
-                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-start">
                         <div class="d-flex justify-content-center align-items-center bg-light p-3 mb-2" style="border-radius: 50%">
                             <i class="fa fa-address-book" aria-hidden="true"></i>
                         </div>
-                        <h3 class="text-bold">Lorem ipsum dolor.</h3>
-                        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci deleniti ea eos facere molestiae nisi odio praesentium quidem velit vero! Aliquam autem consequuntur culpa est expedita incidunt maiores minima nulla omnis optio quas qui quia quo similique totam, velit veritatis.</p>
+                        <h4 class="text-bold">Link Analytics Platform</h4>
+                        <p class="text-center">Отслеживать каждую сокращенную ссылку в реальном времени и измерять ее производительность, чтобы понять ее. Подробная аналитика предоставляет информацию о кликах, кликах социальных сетей, реферрерах страниц, устройствах, браузерах, системах, географическом местоположении.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-12">
-                <div class="card">
-                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-start">
                         <div class="d-flex justify-content-center align-items-center bg-light p-3 mb-2" style="border-radius: 50%">
                             <i class="fa fa-code" aria-hidden="true"></i>
                         </div>
-                        <h3 class="text-bold">Lorem ipsum dolor.</h3>
-                        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci deleniti ea eos facere molestiae nisi odio praesentium quidem velit vero! Aliquam autem consequuntur culpa est expedita incidunt maiores minima nulla omnis optio quas qui quia quo similique totam, velit veritatis.</p>
+                        <h4 class="text-bold">API</h4>
+                        <p class="text-center">Отслеживать каждую сокращенную ссылку в реальном времени и измерять ее производительность, чтобы понять ее. Подробная аналитика предоставляет информацию о кликах, кликах социальных сетей, реферерерах страниц, устройствах, браузерах, системах, географическом местоположении.</p>
                     </div>
                 </div>
             </div>
@@ -116,6 +118,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
     <script src="/js/qrcode.min.js"></script>
     <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @error("url")
+        <script>toastr.warning("{{ $message }}")</script>
+    @enderror
     <script>
         function showShareModal(url){
             let modal = $("#share-modal");

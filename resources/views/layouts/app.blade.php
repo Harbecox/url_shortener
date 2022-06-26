@@ -30,9 +30,9 @@
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-<header class="my-2">
+<header class="bg-light">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="/">
                 <img src="/logo_big.png" style="height: 40px">
             </a>
@@ -64,7 +64,23 @@
 
 
 @yield("script")
-
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
 <x-alert></x-alert>
+<footer class="py-5 mt-2 bg-light">
+    <div class="logo text-center">
+        <img style="height: 50px" src="/logo_big.png">
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 offset-3">
+            <div class="menu d-flex justify-content-between pt-5">
+                <div class="menu_item"><a href="{{ route("index") }}">Shorten URL</a></div>
+                <div class="menu_item"><a href="{{ route("feedback") }}">Feedback</a></div>
+                <div class="menu_item"><a href="{{ route("dashboard.api") }}">Api</a></div>
+                <div class="menu_item"><a href="{{ route("policy") }}">Policy</a></div>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

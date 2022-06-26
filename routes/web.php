@@ -39,4 +39,9 @@ Auth::routes();
 
 Route::post("/",[\App\Http\Controllers\IndexController::class,"create"])->name("create");
 Route::get("/",[\App\Http\Controllers\IndexController::class, 'index'])->name("index");
+Route::get("policy",[\App\Http\Controllers\IndexController::class, 'policy'])->name("policy");
+Route::get("feedback",[\App\Http\Controllers\IndexController::class, 'feedbackForm'])->name("feedback");
+Route::post("feedback",[\App\Http\Controllers\IndexController::class, 'sendEmail'])->name("feedback.send");
+
+
 Route::get('/{alias}',[\App\Http\Controllers\UrlController::class,'index'])->name("url");
