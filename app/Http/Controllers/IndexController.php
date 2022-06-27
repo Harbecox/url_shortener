@@ -42,8 +42,8 @@ class IndexController extends Controller
     }
 
     function sendEmail(EmailRequest $request){
-        Mail::to("harbecox@gmail.com")
-            ->send(new Feedback($request->all()));
+//        Mail::to("harbecox@gmail.com")
+//            ->send(new Feedback($request->all()));
         return back()->with("success","Ваше письмо отправлено");
     }
 
