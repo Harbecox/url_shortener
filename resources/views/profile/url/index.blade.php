@@ -3,52 +3,59 @@
 @section("content")
     <div class="container pb-4">
         <div class="card">
-            <div class="card-body">
-                <form action="#" method="get" class="container">
-                    <div class="row">
-                        <div class="col-md-2 col-12">
-                            <div class="form-group w-100 m-0 mb-2">
-                                <select name="group_id" class="form-control">
-                                    <option @if(-1 == $group_id) selected @endif value="-1">Все группы</option>
-                                    <option @if(0 == $group_id) selected @endif value="0">Без группы</option>
-                                    @foreach($groups as $group)
-                                        <option @if($group->id == $group_id) selected @endif value="{{ $group->id }}">{{ $group->title }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-12">
-                            <div class="form-group w-100 m-0 mb-2">
-                                <input type="date" value="{{ $date_start ?? null }}" name="date_start" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-12">
-                            <div class="form-group w-100 m-0 mb-2">
-                                <input type="date" value="{{ $date_end ?? null }}" name="date_end" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-12">
-                            <div class="form-group w-100 m-0 mb-2">
-                                <select name="order_by" class="form-control">
-                                    <option @if($order_by == "created_at") selected @endif value="created_at">По дате создания</option>
-                                    <option @if($order_by == "visits") selected @endif value="visits">По кликам</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-12">
-                            <div class="form-group w-100 m-0 mb-2">
-                                <select name="sort" class="form-control">
-                                    <option @if($sort == "ASC") selected @endif value="ASC">По возрастанию</option>
-                                    <option @if($sort == "DESC") selected @endif value="DESC">По убыванию</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-12">
-                            <button class="btn btn-info w-100 mb-2">OK</button>
-                        </div>
-                    </div>
-                </form>
+            <div class="card-header d-flex justify-content-end d-md-none">
+                <a class="text-dark navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-filter" aria-hidden="true"></i>
+                </a>
             </div>
+            <nav class="navbar navbar-expand-md card-body">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form action="#" method="get" class="container">
+                        <div class="row">
+                            <div class="col-md-2 col-12">
+                                <div class="form-group w-100 m-0 mb-2">
+                                    <select name="group_id" class="form-control">
+                                        <option @if(-1 == $group_id) selected @endif value="-1">Все группы</option>
+                                        <option @if(0 == $group_id) selected @endif value="0">Без группы</option>
+                                        @foreach($groups as $group)
+                                            <option @if($group->id == $group_id) selected @endif value="{{ $group->id }}">{{ $group->title }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <div class="form-group w-100 m-0 mb-2">
+                                    <input type="date" value="{{ $date_start ?? null }}" name="date_start" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <div class="form-group w-100 m-0 mb-2">
+                                    <input type="date" value="{{ $date_end ?? null }}" name="date_end" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <div class="form-group w-100 m-0 mb-2">
+                                    <select name="order_by" class="form-control">
+                                        <option @if($order_by == "created_at") selected @endif value="created_at">По дате создания</option>
+                                        <option @if($order_by == "visits") selected @endif value="visits">По кликам</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <div class="form-group w-100 m-0 mb-2">
+                                    <select name="sort" class="form-control">
+                                        <option @if($sort == "ASC") selected @endif value="ASC">По возрастанию</option>
+                                        <option @if($sort == "DESC") selected @endif value="DESC">По убыванию</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <button class="btn btn-info w-100 mb-2">OK</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </nav>
         </div>
         <div class="card">
             <div class="card-body">
@@ -59,7 +66,7 @@
                     <div class="col-md-1 col-sm-12 text-bold">Группа</div>
                 </div>
                 @foreach($urls as $url)
-                    <div class="row t-row">
+                    <div class="row t-row mb-md-0 mb-3">
                         <div class="col-md-4">
                             <a target="_blank" href="{{ route("url",$url['alias']) }}">{{ route("url",$url['alias']) }}</a>
                             <div class="text-sm text-ellipsis">{{ $url['url'] }}</div>

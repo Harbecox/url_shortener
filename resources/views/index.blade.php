@@ -81,38 +81,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="share-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Поделитесь</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body d-flex align-items-center flex-column">
-                    <div class="input-group mb-3">
-                        <input readonly type="text" class="form-control urlInput">
-                        <div class="input-group-append">
-                            <button class="urlCopyButton input-group-text"><i class="fas fa-copy"></i></button>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-4">
-                        <span data-sharer="vk" class="share-button" style="background-color: #07f"><i class="fab fa-vk"></i></span>
-                        <span data-sharer="facebook" class="share-button" style="background-color: #3b5998"><i class="fab fa-facebook-f"></i></span>
-                        <span data-sharer="whatsapp" class="share-button" style="background-color: #65bc54"><i class="fab fa-whatsapp"></i></span>
-                        <span data-sharer="telegram" class="share-button" style="background-color: #64a9dc"><i class="fab fa-telegram-plane"></i></span>
-                        <span data-sharer="skype" class="share-button" style="background-color: #00aff0"><i class="fab fa-skype"></i></span>
-                        <span data-sharer="twitter" class="share-button" style="background-color: #00aced"><i class="fab fa-twitter"></i></span>
-                        <span data-sharer="okru" class="share-button" style="background-color: #eb722e"><i class="fab fa-odnoklassniki"></i></span>
-                    </div>
-                    <div id="qrcode" class="mb-4"></div>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
+
     <script src="/plugins/jquery/jquery.min.js"></script>
     <script src="/plugins/toastr/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>

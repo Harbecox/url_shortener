@@ -47,11 +47,11 @@
                                 <a class="nav-link" href="{{ route("dashboard") }}">{{ \Illuminate\Support\Facades\Auth::user()->name }}</a>
                             </li>
                         @else
-                            <li class="nav-item mx-3">
-                                <a class="nav-link btn btn-success text-white" href="{{ route("login") }}">Авторизоваться</a>
+                            <li class="nav-item mx-0 mx-md-3 my-2 my-mb-0 ">
+                                <a class="nav-link btn btn-success text-white px-2" href="{{ route("login") }}">Авторизоваться</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-primary text-white" href="{{ route("register") }}">Зарегистрироваться</a>
+                            <li class="nav-item my-2 my-mb-0">
+                                <a class="nav-link btn btn-primary text-white px-2" href="{{ route("register") }}">Зарегистрироваться</a>
                             </li>
                         @endif
                     </ul>
@@ -87,5 +87,37 @@
         </div>
     </div>
 </footer>
+<div class="modal fade" id="share-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Поделитесь</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body d-flex align-items-center flex-column">
+                <div class="input-group mb-3">
+                    <input readonly type="text" class="form-control urlInput">
+                    <div class="input-group-append">
+                        <button class="urlCopyButton input-group-text"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="d-flex mb-4">
+                    <span data-sharer="vk" class="share-button" style="background-color: #07f"><i class="fab fa-vk"></i></span>
+                    <span data-sharer="facebook" class="share-button" style="background-color: #3b5998"><i class="fab fa-facebook-f"></i></span>
+                    <span data-sharer="whatsapp" class="share-button" style="background-color: #65bc54"><i class="fab fa-whatsapp"></i></span>
+                    <span data-sharer="telegram" class="share-button" style="background-color: #64a9dc"><i class="fab fa-telegram-plane"></i></span>
+                    <span data-sharer="skype" class="share-button" style="background-color: #00aff0"><i class="fab fa-skype"></i></span>
+                    <span data-sharer="twitter" class="share-button" style="background-color: #00aced"><i class="fab fa-twitter"></i></span>
+                    <span data-sharer="okru" class="share-button" style="background-color: #eb722e"><i class="fab fa-odnoklassniki"></i></span>
+                </div>
+                <div id="qrcode" class="mb-4"></div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 </body>
 </html>

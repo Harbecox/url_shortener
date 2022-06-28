@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-12">
                             <div class="form-check mb-2">
-                                <input @if($group->is_active || Route::is('dashboard.group.create')) checked @endif name="is_active" type="checkbox" class="form-check-input"
+                                <input @if($group->is_active || Route::is('dashboard.group.create')) checked @endif name="is_active" value="1" type="checkbox" class="form-check-input"
                                        id="check_is_active">
                                 <label class="form-check-label" for="check_is_active">Активна</label>
                                 <a href="#" class="ml-1" data-toggle="tooltip"
@@ -50,7 +50,7 @@
                                         class="fas fa-question-circle"></i></a>
                             </div>
                             <div class="form-check mb-2">
-                                <input @if($group->is_rotation) checked @endif name="is_rotation" type="checkbox" class="form-check-input"
+                                <input @if($group->is_rotation) checked @endif value="1" name="is_rotation" type="checkbox" class="form-check-input"
                                        id="check_is_rotation">
                                 <label class="form-check-label" for="check_is_rotation">Ротация</label>
                                 <a href="#" class="ml-1" data-toggle="tooltip"
