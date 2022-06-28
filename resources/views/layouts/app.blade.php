@@ -74,13 +74,15 @@
     <div class="logo text-center">
         <img style="height: 50px" src="/logo_big.png">
     </div>
-    <div class="row">
-        <div class="col-12 col-md-6 offset-md-3">
-            <div class="menu d-flex justify-content-between pt-5 flex-md-row flex-column align-items-center">
-                <div class="menu_item py-md-0 py-1"><a href="{{ route("index") }}">Shorten URL</a></div>
-                <div class="menu_item py-md-0 py-1"><a href="{{ route("feedback") }}">Feedback</a></div>
-                <div class="menu_item py-md-0 py-1"><a href="{{ route("dashboard.api") }}">Api</a></div>
-                <div class="menu_item py-md-0 py-1"><a href="{{ route("policy") }}">Policy</a></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 offset-md-3">
+                <div class="menu d-flex justify-content-between pt-5 flex-md-row flex-column align-items-center">
+                    <div class="menu_item py-md-0 py-1"><a href="{{ route("index") }}">Shorten URL</a></div>
+                    <div class="menu_item py-md-0 py-1"><a href="{{ route("feedback") }}">Feedback</a></div>
+                    <div class="menu_item py-md-0 py-1"><a href="{{ route("dashboard.api") }}">Api</a></div>
+                    <div class="menu_item py-md-0 py-1"><a href="{{ route("policy") }}">Policy</a></div>
+                </div>
             </div>
         </div>
     </div>
