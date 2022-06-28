@@ -14,33 +14,36 @@ class UrlController extends Controller
 {
     function index($alias){
         $url_obj = Alias::query()->where("alias",$alias)->firstOrFail();
-        if($url_obj->url_obj->user->blocked){
-            abort("404");
-        }
         $url = $url_obj['url'];
-        $ip = R::ip();
-        $is_unique = !Visit::query()->where("alias",$alias)
-            ->where("ip",$ip)->exists();
-        if($is_unique && $url_obj->subject_id > 0){
-            $referer = R::header("referer");
-            $position = Location::get($ip);
-            $country_code = "";
-            if($position){
-                $country_code = $position->countryCode;
+        if($url_obj->subject_id > 0){
+            if($url_obj->url_obj->user->blocked){
+                abort("404");
             }
-            $agent = new Agent();
-            $browser = $agent->browser();
-            $os = $agent->platform();
-            $device = $agent->deviceType();
-            Visit::create([
-                "alias" => $alias,
-                "country_code" => $country_code,
-                "ip" => $ip,
-                "referer" => $referer,
-                "browser" => $browser,
-                "os" => $os,
-                "device" => $device
-            ]);
+            $ip = R::ip();
+            $is_unique = !Visit::query()->where("alias",$alias)
+                ->where("ip",$ip)->exists();
+
+            if($is_unique){
+                $referer = R::header("referer");
+                $position = Location::get($ip);
+                $country_code = "";
+                if($position){
+                    $country_code = $position->countryCode;
+                }
+                $agent = new Agent();
+                $browser = $agent->browser();
+                $os = $agent->platform();
+                $device = $agent->deviceType();
+                Visit::create([
+                    "alias" => $alias,
+                    "country_code" => $country_code,
+                    "ip" => $ip,
+                    "referer" => $referer,
+                    "browser" => $browser,
+                    "os" => $os,
+                    "device" => $device
+                ]);
+            }
         }
         return redirect($url);
     }
