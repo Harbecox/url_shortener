@@ -2,7 +2,9 @@
 
 namespace App\Rules;
 
+use App\Models\CheckUrlOkStatus;
 use App\Models\ForbiddenWord;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Validation\Rule;
 
 class UrlRule implements Rule
@@ -32,7 +34,19 @@ class UrlRule implements Rule
                 return false;
             }
         }
-        return true;
+        $check = CheckUrlOkStatus::query()->firstOrFail()->check;
+
+        if($check){
+            $client = new Client();
+            try {
+                $client->get($value);
+                return true;
+            }catch (\Exception $e){
+                return false;
+            }
+        }else{
+            return true;
+        }
     }
 
     /**
@@ -42,6 +56,6 @@ class UrlRule implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'Ссылка не валидна или запрещена.';
     }
 }

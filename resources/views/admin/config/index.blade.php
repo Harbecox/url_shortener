@@ -30,6 +30,20 @@
         </div>
         <div class="card">
             <div class="card-header">
+                <h3 class="card-title">Преверять ссылку на статус 200</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <form action="{{ route("admin.config.check_status") }}" method="post">
+                    @csrf
+                    <input @if($check_status) checked @endif name="check" value="true" type="checkbox" class="form-check-inline">
+                    <button class="btn btn-success">Save</button>
+                </form>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <div class="card">
+            <div class="card-header">
                 <h3 class="card-title">Огроничние АПИ</h3>
             </div>
             <!-- /.card-header -->
@@ -80,7 +94,51 @@
                     </div>
                 </form>
             </div>
-            <!-- /.card-body -->
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Feedback Email</h3>
+            </div>
+            <div class="card-body">
+                <form action="{{ route("admin.config.email") }}" method="post">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-3 col-12">
+                            <div class="input-group mb-3">
+                                <input type="text" value="{{ $feedback_email }}" required name="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <button class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Change Admin password</h3>
+            </div>
+            <div class="card-body">
+                <form action="{{ route("admin.config.change_pass") }}" method="post">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-3 col-12">
+                            <div class="input-group mb-3">
+                                <input type="text" required name="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <div class="input-group mb-3">
+                                <input type="text" required name="re_password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <button class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <div class="modal fade" id="delete-modal">

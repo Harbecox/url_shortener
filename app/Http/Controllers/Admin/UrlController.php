@@ -19,6 +19,25 @@ use Illuminate\Support\Facades\DB;
 class UrlController extends Controller
 {
     function index(Request $request){
+        if($request->has("sort_by_visits")){
+            $urls = Alias::query()->with("url_obj")->where("type","url")->withCount("visits")->orderBy("visits_count")->paginate(25);
+            dd($urls);
+        }else{
+
+        }
+        /*
+          "group_id" => null
+          "user_id" => 2
+          +"created_at" => "2022-06-22 12:06:09"
+          +"updated_at" => "2022-06-22 12:06:16"
+          +"alias" => "GmZOv"
+          +"url" => "http://www.barton.com/"
+          "visits" => 24
+          "user" => App\Models\User {#2350 ▶}
+          "group" => null
+         */
+
+
         $user_id = $request->get("user_id",0);
         $group_id = $request->get("group_id",null);
         $date_start = $request->get("date_start",Carbon::now()->subDays(30));
@@ -57,7 +76,7 @@ class UrlController extends Controller
             $q_url = strlen($q_url) > 0 ? $q_url : null;
         }
 
-        $urls = $query->paginate(25)->withQueryString();
+        $urls = $query->orderByDesc("created_at")->paginate(25)->withQueryString();
 
         $ids = [];
         $user_ids = [];
@@ -101,6 +120,8 @@ class UrlController extends Controller
         $data['users'] = User::query()->where("role","user")->select(['name','email','id'])->get();
         $data['date_start'] = Carbon::make($date_start)->toDateString();
         $data['date_end'] = Carbon::make($date_end)->toDateString();
+
+
         return view("admin.url.index",$data);
     }
 
@@ -164,4 +185,14 @@ class UrlController extends Controller
         return $data;
     }
 
+    function mass_delete(Request $request){
+        $aliases = $request->get("del_check");
+        Alias::query()->whereIn("alias",$aliases)->get()
+            ->each(function ($alias){
+                $alias->visits()->delete();
+                Url::query()->where("id",$alias->subject_id)->delete();
+                Alias::query()->where("alias",$alias)->delete();
+            });
+        return back();
+    }
 }

@@ -34,13 +34,20 @@
                         <div class="col-md-2 col-12">
                             <button class="btn btn-info w-100 mb-2">OK</button>
                         </div>
+                        <div class="col-md-3 col-12">
+                            <label for="sort_by_visits">По количеству визитов</label>
+                            <input class="form-check-inline" id="sort_by_visits" type="checkbox" name="sort_by_visits">
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Urls</h3>
+        <div class="card w-100">
+            <div class="card-header w-100 d-flex justify-content-between">
+                <div class="w-100"><h3 class="card-title">Urls</h3></div>
+                <div>
+                    <button onclick="showMassDeleteModal()" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -51,6 +58,7 @@
                                    aria-describedby="example2_info">
                                 <thead>
                                 <tr>
+                                    <th><input type="checkbox" class="all_check"></th>
                                     <th>#ID</th>
                                     <th>User</th>
                                     <th>Url</th>
@@ -63,6 +71,7 @@
                                 <tbody>
                                 @foreach($urls as $url)
                                     <tr>
+                                        <td><input type="checkbox" class="del_check" value="{{ $url->alias }}" name="del_check[]"></td>
                                         <td>{{ $url->id }}</td>
                                         <td><a href="#" onclick="fbu({{ $url->user->id }})">{{ $url->user->name }}</a></td>
                                         <td><a target="_blank" href="{{ $url->url }}">{{ $url->url }}</a></td>
@@ -73,7 +82,7 @@
                                             <div class="d-flex justify-content-end">
                                                 <a data-toggle="tooltip" title="Копировать" data-url="{{ route("url",$url->alias) }}" class="btn btn-outline-warning ml-1 urlCopyButton"><i class="fas fa-copy"></i></a>
                                                 <a data-toggle="tooltip" title="Статистика" href="{{ route("admin.url.show",$url->alias) }}" class="btn btn-outline-success ml-1"><i class="fas fa-chart-bar"></i></a>
-                                                <a data-toggle="tooltip" title="Пользователь" href="{{ $url->user->id }}" class="btn btn-outline-success ml-1"><i class="fas fa-user"></i></a>
+                                                <a data-toggle="tooltip" title="Пользователь" href="{{ route("admin.user.show",$user->id) }}" class="btn btn-outline-success ml-1"><i class="fas fa-user"></i></a>
                                                 <a data-toggle="tooltip" title="Удалить" onclick="showModal('{{ route("dashboard.url.destroy",$url['alias']) }}')" class="btn btn-outline-danger ml-1"><i class="fas fa-trash-alt"></i></a>
                                             </div>
                                         </td>
@@ -82,6 +91,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
+                                    <th><input type="checkbox" class="all_check"></th>
                                     <th>#ID</th>
                                     <th>User</th>
                                     <th>Url</th>
@@ -156,6 +166,30 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <div class="modal fade" id="mass-delete-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Удаление ссылок</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Вы действительно хотите удалить ссылки?</p>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button onclick="massDelete()" type="button" class="btn btn-danger delete_btn">Удалить</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <form method="POST" id="from_mass_delete" action="{{ route("admin.url.mass_delete") }}">
+        @csrf
+    </form>
 @endsection
 
 @section("script")
@@ -171,6 +205,27 @@
         function fbu(id){
             let form = $("#url_filter");
             form.find("select[name=user_id]").find("option[value=" + id + "]").attr("selected","selected");
+            form.submit();
+        }
+        document.querySelectorAll(".all_check").forEach(function (e){
+            e.addEventListener("change",function (){
+                let checked = this.checked;
+                document.querySelectorAll(".del_check").forEach(function (e){
+                    e.checked = checked;
+                })
+            });
+        })
+        function showMassDeleteModal(){
+            let modal = $("#mass-delete-modal");
+            modal.modal();
+        }
+        function massDelete(){
+            let form = document.getElementById("from_mass_delete");
+            document.querySelectorAll(".del_check").forEach(function (e){
+                if(e.checked){
+                    form.appendChild(e.cloneNode(true));
+                }
+            })
             form.submit();
         }
     </script>

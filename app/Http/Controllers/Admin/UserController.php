@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -147,5 +148,14 @@ class UserController extends Controller
         $data['countries'] = $countries;
 
         return $data;
+    }
+
+    function update(Request $request,$id){
+        if($request->get("password") == $request->get("re_password")){
+            $user = User::find($id);
+            $user->password = $request->get("password");
+            $user->save();
+        }
+        return back()->with("success","Password saved");
     }
 }

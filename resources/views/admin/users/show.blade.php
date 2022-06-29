@@ -3,30 +3,55 @@
 @section("content")
     <section class="content">
         <div class="container-fluid">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title d-flex justify-content-between w-100">
-                        <div>#{{ $user->id }}</div>
-                        <div class="d-flex">
-                            @if($user->blocked)
-                                <a href="{{ route("admin.user.unblock",$user->id) }}" class="btn btn-success mx-2">Разблокировать</a>
-                            @else
-                                <a href="{{ route("admin.user.block",$user->id) }}" class="btn btn-danger mx-2">Заблокировать</a>
-                            @endif
-                            <form action="{{ route("admin.user.delete",$user->id) }}" method="post">
-                                @csrf
-                                @method("delete")
-                                <button type="submit" href="" type="button" class="mx-2 btn btn-danger delete_btn">Удалить</button>
-                            </form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title d-flex justify-content-between w-100">
+                                <div>#{{ $user->id }}</div>
+                                <div class="d-flex">
+                                    @if($user->blocked)
+                                        <a href="{{ route("admin.user.unblock",$user->id) }}" class="btn btn-success mx-2">Разблокировать</a>
+                                    @else
+                                        <a href="{{ route("admin.user.block",$user->id) }}" class="btn btn-danger mx-2">Заблокировать</a>
+                                    @endif
+                                    <form action="{{ route("admin.user.delete",$user->id) }}" method="post">
+                                        @csrf
+                                        @method("delete")
+                                        <button type="submit" href="" type="button" class="mx-2 btn btn-danger delete_btn">Удалить</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Name:{{ $user->name }}</li>
+                                <li>Email:{{ $user->email }}</li>
+                                <li>Register at:{{ $user->created_at }}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li>Name:{{ $user->name }}</li>
-                        <li>Email:{{ $user->email }}</li>
-                        <li>Register at:{{ $user->created_at }}</li>
-                    </ul>
+                <div class="col-md-6">
+                    <form method="post" action="{{ route("admin.user.update",$user->id) }}" class="card">
+                        @csrf
+                        <div class="card-header">
+                            <div class="card-title d-flex justify-content-between w-100">
+                                <div>Change password</div>
+                                <div>
+                                    <button class="btn btn-success mx-2">Change</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input required name="password" placeholder="password" class="form-control">
+                            </div>
+                            <div class="input-group mt-2">
+                                <input required name="re_password" placeholder="re password" class="form-control">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <!-- Small boxes (Stat box) -->
@@ -55,7 +80,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>{{ $urls_count }}</h3>
+                                <h3><a class="link-light" href="{{ route("admin.url",["user_id" => $user->id]) }}">{{ $urls_count }}</a></h3>
 
                                 <p>Количество ссылок</p>
                             </div>
