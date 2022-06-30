@@ -7,6 +7,7 @@ use App\Http\Requests\EmailRequest;
 use App\Http\Requests\UrlGurstRequest;
 use App\Mail\Feedback;
 use App\Models\Alias;
+use App\Models\FeedbackEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
@@ -42,8 +43,9 @@ class IndexController extends Controller
     }
 
     function sendEmail(EmailRequest $request){
-//        Mail::to("harbecox@gmail.com")
-//            ->send(new Feedback($request->all()));
+
+        Mail::to(FeedbackEmail::query()->firstOrFail()->email)
+            ->send(new Feedback($request->all()));
         return back()->with("success","Ваше письмо отправлено");
     }
 
