@@ -81,7 +81,7 @@
                                                 -
                                             @endif
                                         </td>
-                                        <td><a target="_blank" href="{{ $url->url }}">{{ $url->url }}</a></td>
+                                        <td style="max-width: 350px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><a target="_blank" href="{{ $url->url }}">{{ $url->url }}</a></td>
                                         <td><a target="_blank" href="{{ route("url",$url->alias) }}" >{{ route("url",$url->alias) }}</a></td>
                                         <td><a href="{{ route("admin.url.show",$url->alias) }}">{{ $url->visits }}</a></td>
                                         <td>{{ $url->created_at }}</td>

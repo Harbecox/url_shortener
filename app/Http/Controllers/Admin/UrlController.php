@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 class UrlController extends Controller
 {
     function index(Request $request){
-        $user_id = $request->get("user_id",0);
+        $user_id = $request->get("user_id",-1);
         $group_id = $request->get("group_id",null);
         $date_start = $request->get("date_start",Carbon::now()->subDays(30));
         $date_end = $request->get("date_end",Carbon::now());
