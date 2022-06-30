@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserSeeder::class);
-        $this->call(UrlSeeder::class);
-        $this->call(VisitSeeder::class);
+        ///$this->call(UserSeeder::class);
+        ///$this->call(UrlSeeder::class);
+        ///$this->call(VisitSeeder::class);
 
         FeedbackEmail::create(["email" => "info@urlbit.ru"]);
         CheckUrlOkStatus::create(['check' => false]);
