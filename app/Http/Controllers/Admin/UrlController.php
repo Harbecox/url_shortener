@@ -19,25 +19,6 @@ use Illuminate\Support\Facades\DB;
 class UrlController extends Controller
 {
     function index(Request $request){
-        if($request->has("sort_by_visits")){
-            $urls = Alias::query()->with("url_obj")->where("type","url")->withCount("visits")->orderBy("visits_count")->paginate(25);
-            dd($urls);
-        }else{
-
-        }
-        /*
-          "group_id" => null
-          "user_id" => 2
-          +"created_at" => "2022-06-22 12:06:09"
-          +"updated_at" => "2022-06-22 12:06:16"
-          +"alias" => "GmZOv"
-          +"url" => "http://www.barton.com/"
-          "visits" => 24
-          "user" => App\Models\User {#2350 ▶}
-          "group" => null
-         */
-
-
         $user_id = $request->get("user_id",0);
         $group_id = $request->get("group_id",null);
         $date_start = $request->get("date_start",Carbon::now()->subDays(30));
@@ -48,22 +29,12 @@ class UrlController extends Controller
         }
         $data['url'] = $url;
 
-        $query = Url::query();
-
-        if($url){
-            $subject_ids = Alias::query()->select(['subject_id'])->where("url","LIKE","%".$url."%")
-                ->where("type","url")->get()->map(function ($al){
-                    return $al->subject_id;
-                })->toArray();
-            $query = $query->whereIn("id",$subject_ids);
+        if($request->has("sort_by_visits") || $user_id == 0){
+            $query = Alias::query();
+        }else{
+            $query = Url::query();
         }
 
-        if($user_id > 0){
-            $query = $query->where("user_id",$user_id);
-        }
-        if($group_id){
-            $query = $query->where("group_id",$group_id);
-        }
         if($date_start){
             $query = $query->whereDate("created_at",">=",$date_start);
         }
@@ -71,49 +42,87 @@ class UrlController extends Controller
             $query = $query->whereDate("created_at","<=",$date_end);
         }
 
-        if($request->has("url")){
-            $q_url = trim($request->get("url"));
-            $q_url = strlen($q_url) > 0 ? $q_url : null;
-        }
+        if($request->has("sort_by_visits") || $user_id == 0){
+            $query = $query->with(["url_obj" => function($q){
+                $q->with("user");
+                $q->with("group");
+            }])
+                ->where("type","url")
+                ->withCount("visits");
+            if($user_id == 0){
+                $query = $query->where("subject_id",0);
+            }
+            if($request->has("sort_by_visits")){
+                $query = $query->orderBy("visits_count");
+            }else{
+                $query = $query->orderBy("created_at");
+            }
 
-        $urls = $query->orderByDesc("created_at")->paginate(25)->withQueryString();
+            $urls = $query->paginate(25)->withQueryString();
 
-        $ids = [];
-        $user_ids = [];
-        $group_ids = [];
-        foreach ($urls as $url){
-            $ids[] = $url->id;
-            $user_ids[] = $url->user_id;
-            $group_ids[] = $url->group_id;
-        }
+            foreach ($urls as &$url){
+                $url['visits'] = $url->visits_count;
+                $url['user_id'] = $url->url_obj->user->id ?? null;
+                $url['group_id'] = $url->url_obj->group_id ?? null;
+                $url['user'] = $url->url_obj->user ?? null;
+                $url['group'] = $url->url_obj->group ?? null;
+            }
 
-        $aliases_q = Alias::query()
-            ->whereIn("subject_id",$ids)
-            ->where("type","url")
-            ->get();
+        }else{
+            if($url){
+                $subject_ids = Alias::query()->select(['subject_id'])->where("url","LIKE","%".$url."%")
+                    ->where("type","url")->get()->map(function ($al){
+                        return $al->subject_id;
+                    })->toArray();
+                $query = $query->whereIn("id",$subject_ids);
+            }
+            if($user_id > 0){
+                $query = $query->where("user_id",$user_id);
+            }
+            if($group_id){
+                $query = $query->where("group_id",$group_id);
+            }
+            $urls = $query->orderByDesc("created_at")->paginate(25)->withQueryString();
+
+            $ids = [];
+            $user_ids = [];
+            $group_ids = [];
+            foreach ($urls as $url){
+                $ids[] = $url->id;
+                $user_ids[] = $url->user_id;
+                $group_ids[] = $url->group_id;
+            }
+
+            $aliases_q = Alias::query()
+                ->whereIn("subject_id",$ids)
+                ->where("type","url")
+                ->get();
 
 
-        $aliases = $aliases_q->map(function ($a){
-            return $a->alias;
-        });
-
-        $visits = Visit::query()->whereIn("alias",$aliases)->get()->groupBy("alias")
-            ->map(function ($items){
-                return $items->count();
+            $aliases = $aliases_q->map(function ($a){
+                return $a->alias;
             });
 
-        $users = User::query()->whereIn("id",$user_ids)->get();
-        $groups = Group::query()->whereIn("id",$group_ids)->get();
+            $visits = Visit::query()->whereIn("alias",$aliases)->get()->groupBy("alias")
+                ->map(function ($items){
+                    return $items->count();
+                });
 
-        foreach ($urls as &$url){
-            $alias = $aliases_q->where("subject_id",$url->id)->first()->alias;
-            $url['alias'] = $alias;
-            $url['url'] = $aliases_q->where("subject_id",$url->id)->first()->url;
-            $url['visits'] = $visits[$alias];
-            $url['user'] = $users->where("id",$url->user_id)->first();
-            $url['group'] = $groups->where("id",$url->group_id)->first();
+            $users = User::query()->whereIn("id",$user_ids)->get();
+            $groups = Group::query()->whereIn("id",$group_ids)->get();
+
+            foreach ($urls as &$url){
+                $alias = $aliases_q->where("subject_id",$url->id)->first()->alias;
+                $url['alias'] = $alias;
+                $url['url'] = $aliases_q->where("subject_id",$url->id)->first()->url;
+                $url['visits'] = $visits[$alias];
+                $url['user'] = $users->where("id",$url->user_id)->first();
+                $url['group'] = $groups->where("id",$url->group_id)->first();
+            }
+
         }
 
+        $data['sort_by_visits'] = $request->has("sort_by_visits");
         $data['user_id'] = $user_id;
         $data['urls'] = $urls;
 

@@ -27,7 +27,7 @@ class UrlController extends Controller
                 $data['group'] = $group;
                 return view("group",$data);
             }elseif($url_obj->type == "url"){
-                if($url_obj->url_obj->user->blocked){
+                if($url_obj->url_obj && $url_obj->url_obj->user && $url_obj->url_obj->user->blocked){
                     abort("404");
                 }
                 $ip = R::ip();

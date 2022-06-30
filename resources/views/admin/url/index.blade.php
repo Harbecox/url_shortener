@@ -9,7 +9,8 @@
                         <div class="col-md-3 col-12">
                             <div class="form-group w-100 m-0 mb-2">
                                 <select name="user_id" class="form-control select2">
-                                    <option value="0" @if($user_id == 0) selected @endif>All</option>
+                                    <option value="-1" @if($user_id == -1) selected @endif>Все</option>
+                                    <option value="0" @if($user_id == 0) selected @endif>Без регистрации</option>
                                     @foreach($users as $user)
                                         <option @if($user->id == $user_id) selected @endif value="{{ $user->id }}">{{ $user->name }} - {{ $user->email }}</option>
                                     @endforeach
@@ -36,7 +37,7 @@
                         </div>
                         <div class="col-md-3 col-12">
                             <label for="sort_by_visits">По количеству визитов</label>
-                            <input class="form-check-inline" id="sort_by_visits" type="checkbox" name="sort_by_visits">
+                            <input class="form-check-inline" @if($sort_by_visits) checked @endif id="sort_by_visits" type="checkbox" name="sort_by_visits">
                         </div>
                     </div>
                 </form>
@@ -73,7 +74,13 @@
                                     <tr>
                                         <td><input type="checkbox" class="del_check" value="{{ $url->alias }}" name="del_check[]"></td>
                                         <td>{{ $url->id }}</td>
-                                        <td><a href="#" onclick="fbu({{ $url->user->id }})">{{ $url->user->name }}</a></td>
+                                        <td>
+                                            @if($url->user)
+                                                <a href="#" onclick="fbu({{ $url->user->id }})">{{ $url->user->name }}</a>
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
                                         <td><a target="_blank" href="{{ $url->url }}">{{ $url->url }}</a></td>
                                         <td><a target="_blank" href="{{ route("url",$url->alias) }}" >{{ route("url",$url->alias) }}</a></td>
                                         <td><a href="{{ route("admin.url.show",$url->alias) }}">{{ $url->visits }}</a></td>
