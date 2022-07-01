@@ -29,19 +29,20 @@
                                 <label for="input_alias">Алиас<a href="#" class="ml-1" data-toggle="tooltip"
                                                                  title="Алиас ссылки для группы. Например, {{ url('/') }}/new_group"><i
                                             class="fas fa-question-circle"></i></a></label>
-                                <div class="d-flex align-items-center">{{ url('/') }}/<input name="alias"
-                                                                                             value="{{ $url->alias ?? old("alias") }}"
-                                                                                             type="text"
-                                                                                             class="form-control @error('alias') is-invalid @enderror"
-                                                                                             @if($method == "put")
-                                                                                                 disabled
-                                                                                             @endif
-                                                                                             id="input_alias"
-                                                                                             placeholder="Введите название группы">
-                                    @error('alias')
-                                        <div class="error invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                <div class="d-flex align-items-center @error('alias') is-invalid @enderror">
+                                    {{ url('/') }}/<input name="alias"
+                                                          value="{{ $url->alias ?? old("alias") }}"
+                                                          type="text"
+                                                          class="form-control @error('alias') is-invalid @enderror"
+                                                          @if($method == "put")
+                                                          disabled
+                                                          @endif
+                                                          id="input_alias"
+                                                          placeholder="Введите название группы">
                                 </div>
+                                @error('alias')
+                                <div class="error invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6 col-12">

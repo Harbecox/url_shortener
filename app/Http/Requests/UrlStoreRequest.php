@@ -28,7 +28,7 @@ class UrlStoreRequest extends FormRequest
     {
         return [
             "url" => ['required','url',new UrlRule],
-            "alias" => [new AliasRule],
+            "alias" => [new AliasRule,"max:12"],
             "group_id" => [new GroupOwnerRule]
         ];
     }
