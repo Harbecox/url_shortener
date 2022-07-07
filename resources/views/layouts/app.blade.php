@@ -44,7 +44,7 @@
                     <ul class="navbar-nav">
                         @auth()
                             <li class="nav-item mx-3">
-                                <a class="nav-link" href="{{ route("dashboard") }}">{{ \Illuminate\Support\Facades\Auth::user()->name }}</a>
+                                <a class="nav-link" href="{{ \Illuminate\Support\Facades\Auth::user()->role == "admin" ? route("admin.url") : route("dashboard") }}">{{ \Illuminate\Support\Facades\Auth::user()->name }}</a>
                             </li>
                         @else
                             <li class="nav-item mx-0 mx-md-3 my-2 my-mb-0 ">
