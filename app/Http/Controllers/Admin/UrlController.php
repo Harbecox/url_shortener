@@ -119,6 +119,7 @@ class UrlController extends Controller
                 $al = $aliases_q->where("subject_id",$url->id)->first();
                 if(!$al){
                     unset($url);
+                    continue;
                 }
                 $alias = $al ? $al->alias : null;
                 $url['alias'] = $alias;
