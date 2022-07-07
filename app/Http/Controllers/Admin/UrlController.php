@@ -115,7 +115,9 @@ class UrlController extends Controller
             $users = User::query()->whereIn("id",$user_ids)->get();
             $groups = Group::query()->whereIn("id",$group_ids)->get();
 
-            foreach ($urls as &$url){
+            $urls_new = [];
+
+            foreach ($urls as $url){
                 $al = $aliases_q->where("subject_id",$url->id)->first();
                 if(!$al){
                     unset($url);
@@ -127,7 +129,10 @@ class UrlController extends Controller
                 $url['visits'] = $visits[$alias] ?? 0;
                 $url['user'] = $users->where("id",$url->user_id)->first();
                 $url['group'] = $groups->where("id",$url->group_id)->first();
+                $urls_new[] = $url;
             }
+
+            $urls = $urls_new;
 
         }
 
