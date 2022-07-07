@@ -30,7 +30,7 @@ class VisitSeeder extends Seeder
         $aliases = Alias::all();
         foreach ($aliases as $alias){
             $visits = [];
-            for($i=0;$i<rand(10,100);$i++){
+            for($i=0;$i<rand(1,10);$i++){
                 $date = $faker->dateTimeBetween("-3 days");
                 $visits[] = [
                     "country_code" => $faker->countryCode(),

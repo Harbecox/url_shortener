@@ -22,7 +22,7 @@ class UrlSeeder extends Seeder
         $faker = Factory::create();
         $users = User::query()->select(['id'])->where("role", "user")->get();
         foreach ($users as $user) {
-            for($i = 0;$i < rand(10,5000);$i++){
+            for($i = 0;$i < rand(10,100);$i++){
                 $alias = Alias::createUnique();
                 $url = Url::create([
                     "user_id" => $user->id,

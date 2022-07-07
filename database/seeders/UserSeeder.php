@@ -28,6 +28,6 @@ class UserSeeder extends Seeder
             "email" => "test@gmail.com"
         ]);
 
-        User::factory(1000)->create();
+        User::factory(10)->create();
     }
 }
