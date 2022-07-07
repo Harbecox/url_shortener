@@ -49,6 +49,8 @@ class UrlController extends Controller
             }])
                 ->where("type","url")
                 ->withCount("visits");
+
+
             if($user_id == 0){
                 $query = $query->where("subject_id",0);
             }
@@ -69,6 +71,7 @@ class UrlController extends Controller
             }
 
         }else{
+
             if($url){
                 $subject_ids = Alias::query()->select(['subject_id'])->where("url","LIKE","%".$url."%")
                     ->where("type","url")->get()->map(function ($al){
@@ -76,6 +79,7 @@ class UrlController extends Controller
                     })->toArray();
                 $query = $query->whereIn("id",$subject_ids);
             }
+
             if($user_id > 0){
                 $query = $query->where("user_id",$user_id);
             }
@@ -112,10 +116,14 @@ class UrlController extends Controller
             $groups = Group::query()->whereIn("id",$group_ids)->get();
 
             foreach ($urls as &$url){
-                $alias = $aliases_q->where("subject_id",$url->id)->first()->alias;
+                $al = $aliases_q->where("subject_id",$url->id)->first();
+                if(!$al){
+                    unset($url);
+                }
+                $alias = $al ? $al->alias : null;
                 $url['alias'] = $alias;
-                $url['url'] = $aliases_q->where("subject_id",$url->id)->first()->url;
-                $url['visits'] = $visits[$alias];
+                $url['url'] = $al ? $al->url : null;
+                $url['visits'] = $visits[$alias] ?? 0;
                 $url['user'] = $users->where("id",$url->user_id)->first();
                 $url['group'] = $groups->where("id",$url->group_id)->first();
             }

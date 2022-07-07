@@ -39,7 +39,8 @@
 </div>
 
 @yield("script")
-
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
 <x-alert></x-alert>
 </body>
 </html>
