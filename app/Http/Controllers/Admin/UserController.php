@@ -38,19 +38,26 @@ class UserController extends Controller
 
         $urls = $urls->map(function (Url $url) use ($visits){
             $alias = $url->alias;
+            $visits = isset($visits[$alias->alias]) ? $visits[$alias->alias]['visits'] : 0;
             $url->unsetRelation("alias");
             $url["alias"] = $alias->alias;
-            $url["visits"] = $visits[$alias->alias]['visits'];
+            $url["visits"] = $visits;
             return $url;
         })->groupBy("user_id");
 
         foreach ($users as &$user){
             $visits_count = 0;
             $url_count = 0;
-            foreach ($urls[$user->id] as $url){
-                $url_count++;
-                $visits_count += $url->visits;
+            if(isset($urls[$user->id])){
+                foreach ($urls[$user->id] as $url){
+                    $url_count++;
+                    $visits_count += $url->visits;
+                }
+            }else{
+                $url_count = 0;
+                $visits_count  = 0;
             }
+
             $user['urls'] = [
                 "url_count" => $url_count,
                 "visits_count" => $visits_count
