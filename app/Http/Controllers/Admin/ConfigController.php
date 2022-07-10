@@ -47,8 +47,11 @@ class ConfigController extends Controller
 
     function mass_delete(Request $request){
         $from = Carbon::make($request->get("after"));
-        Url::query()->where("created_at","<",$from)->delete();
-        Alias::query()->where("created_at","<",$from)->delete();
+        $urls = Url::query()->where("created_at","<",$from)->get();
+        foreach ($urls as $url){
+            $url->delete();
+            Alias::query()->where("subject_id",$url->id)->where("type","url")->delete();
+        }
         return back();
     }
 
