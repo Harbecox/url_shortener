@@ -40,7 +40,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse">
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end w-100">
                     <ul class="navbar-nav flex-column flex-sm-row">
                         @auth()
                             <li class="nav-item mx-3">
