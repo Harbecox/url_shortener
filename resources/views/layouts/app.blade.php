@@ -9,45 +9,45 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
-    <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
-    <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
-    <link rel="stylesheet" href="/plugins/toastr/toastr.css">
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
 <header class="bg-light">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
             <a class="navbar-brand" href="/">
-                <img src="/logo_big.png" style="height: 40px">
+                <img alt="urlbit.ru" src="{{ asset('logo_big.png') }}" style="height: 40px">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <div class="collapse navbar-collapse">
                 <div class="d-flex justify-content-end">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav flex-column flex-sm-row">
                         @auth()
                             <li class="nav-item mx-3">
                                 <a class="nav-link" href="{{ \Illuminate\Support\Facades\Auth::user()->role == "admin" ? route("admin.url") : route("dashboard") }}">{{ \Illuminate\Support\Facades\Auth::user()->name }}</a>
                             </li>
                         @else
-                            <li class="nav-item mx-0 mx-md-3 my-2 my-mb-0 ">
+                            <li class="nav-item mx-sm-3 my-2 my-mb-0">
                                 <a class="nav-link btn btn-success text-white px-2" href="{{ route("login") }}">Авторизоваться</a>
                             </li>
                             <li class="nav-item my-2 my-mb-0">
@@ -66,13 +66,18 @@
 
 
 @yield("script")
-<script src="/plugins/jquery/jquery.min.js"></script>
-<script src="/plugins/toastr/toastr.min.js"></script>
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script>
+    $(".navbar-toggler").click(function (){
+        $(".navbar-collapse").toggleClass("show");
+    })
+</script>
 <x-alert></x-alert>
 <footer class="py-5 mt-2 bg-light">
     <div class="logo text-center">
-        <img style="height: 50px" src="/logo_big.png">
+        <img style="height: 50px" src="{{ asset('logo_big.png') }}">
     </div>
     <div class="container">
         <div class="row">

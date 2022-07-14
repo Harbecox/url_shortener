@@ -10,8 +10,8 @@
             </div>
             <nav class="navbar navbar-expand-md card-body">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form action="#" method="get" class="container">
-                        <div class="row">
+                    <form action="#" method="get" class="w-100">
+                        <div class="row w-100">
                             <div class="col-md-2 col-12">
                                 <div class="form-group w-100 m-0 mb-2">
                                     <select name="group_id" class="form-control">
@@ -25,12 +25,12 @@
                             </div>
                             <div class="col-md-2 col-12">
                                 <div class="form-group w-100 m-0 mb-2">
-                                    <input type="date" value="{{ $date_start ?? null }}" name="date_start" class="form-control">
+                                    <input type="text" value="{{ $date_start ?? null }}" name="date_start" class="form-control" onblur="(this.type='text')" onfocus="(this.type='date')" placeholder="Дата создания от ...">
                                 </div>
                             </div>
                             <div class="col-md-2 col-12">
                                 <div class="form-group w-100 m-0 mb-2">
-                                    <input type="date" value="{{ $date_end ?? null }}" name="date_end" class="form-control">
+                                    <input type="text" value="{{ $date_end ?? null }}" name="date_end" class="form-control" onblur="(this.type='text')" onfocus="(this.type='date')" placeholder="Дата создания до ...">
                                 </div>
                             </div>
                             <div class="col-md-2 col-12">
@@ -68,10 +68,10 @@
                 @foreach($urls as $url)
                     <div class="row t-row mb-md-0 mb-3">
                         <div class="col-md-4">
-                            <a target="_blank" href="{{ route("url",$url['alias']) }}">{{ route("url",$url['alias']) }}</a>
+                            <a target="_blank" class="text-decoration-none" href="{{ route("url",$url['alias']) }}">{{ route("url",$url['alias']) }}</a>
                             <div class="text-sm text-ellipsis">{{ $url['url'] }}</div>
                         </div>
-                        <div class="col-md-2"><div class="d-inline d-md-none">Переходы: </div> {{ $url['visit'] }}</div>
+                        <div class="col-md-2"><div class="d-inline d-md-none">Переходы: </div><a class="text-decoration-none" data-toggle="tooltip" title="Статистика" href="{{ route("dashboard.show",$url['alias']) }}" >{{ $url['visit'] }}</a></div>
                         <div class="col-md-2"><div class="d-inline d-md-none">Дата: </div> {{ \Carbon\Carbon::make($url['created_at'])->format("Y-m-d") }}</div>
                         <div class="col-md-1 d-none d-md-block">@if($url['group_title']) {{ $url['group_title'] }} @else <i class="fas fa-minus text-danger"></i> @endif</div>
                         <div class="col-md-3">

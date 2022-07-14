@@ -60,3 +60,9 @@ footer .menu .menu_item {
   color: inherit;
   text-decoration: none;
 }
+
+.form-control {
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+}

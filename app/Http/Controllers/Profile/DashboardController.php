@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Models\Url;
 use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -23,7 +24,30 @@ class DashboardController extends Controller
         $data['urls_count'] = $urls->count();
         $data['url'] = $urls->first();
         $data['is_single'] = false;
+        $data['chart_data'] = $this->getChartData();
         return view("profile.dashboard",$data);
+    }
+
+    function getChartData(){
+        $aliases = Url::query()->where("user_id",Auth::user()->id)->with("alias")->get()
+            ->map(function ($url){
+                return $url->alias->alias;
+            });
+        $dates = [];
+        for($i = 29;$i > -1;$i--){
+            $date = Carbon::now()->subDays($i)->format("Y-m-d");
+            $dates[$date] = [];
+        }
+        Visit::query()->whereIn("alias",$aliases)
+            ->whereDate("created_at",">",Carbon::now()->subMonth())
+            ->get()->map(function ($visit) use (&$dates){
+                $date = Carbon::make($visit['created_at'])->startOfDay()->format("Y-m-d");
+                $dates[$date][] = $visit;
+            });
+        foreach ($dates as &$date){
+            $date = count($date);
+        }
+        return $dates;
     }
 
     function show($alias){

@@ -27,9 +27,9 @@
                                     <a href="{{ route("url",$url['alias']) }}" target="_blank">{{ route("url",$url['alias']) }}</a>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="d-flex justify-content-end">
-                                        <button  data-url="{{ route("url",$url['alias']) }}" class="btn btn-info mx-2 urlCopyButton">Копировать</button>
-                                        <button onclick="showShareModal('{{ route("url",$url['alias']) }}')" class="btn btn-warning">Поделиться</button>
+                                    <div class="d-flex justify-content-start justify-content-md-end mt-2 mt-mb-0">
+                                        <button  data-url="{{ route("url",$url['alias']) }}" class="btn btn-info mx-md-2 urlCopyButton">Копировать</button>
+                                        <button onclick="showShareModal('{{ route("url",$url['alias']) }}')" class="btn mx-2 mx-md-0 btn-warning">Поделиться</button>
                                     </div>
                                 </div>
                             </div>
