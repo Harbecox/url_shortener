@@ -41,13 +41,13 @@
             </button>
             <div class="collapse navbar-collapse">
                 <div class="d-flex justify-content-end w-100">
-                    <ul class="navbar-nav flex-column flex-sm-row">
+                    <ul class="navbar-nav flex-row flex-md-column">
                         @auth()
                             <li class="nav-item mx-3">
                                 <a class="nav-link" href="{{ \Illuminate\Support\Facades\Auth::user()->role == "admin" ? route("admin.url") : route("dashboard") }}">{{ \Illuminate\Support\Facades\Auth::user()->name }}</a>
                             </li>
                         @else
-                            <li class="nav-item mx-sm-3 my-2 my-mb-0">
+                            <li class="nav-item my-2 my-mb-0 mx-3 mx-md-0">
                                 <a class="nav-link btn btn-success text-white px-2" href="{{ route("login") }}">Авторизоваться</a>
                             </li>
                             <li class="nav-item my-2 my-mb-0">
