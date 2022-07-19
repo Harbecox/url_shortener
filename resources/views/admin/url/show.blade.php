@@ -149,6 +149,16 @@
                         <!-- /.card-body -->
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-gradient-primary">
+                            <h3 class="card-title">Переходы</h3>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="line_chart" width="100%"></canvas>
+                        </div>
+                    </div>
+                </div>
                 <!-- right col -->
             </div>
             <!-- /.row (main row) -->
@@ -251,6 +261,30 @@
             })
         }
 
+    </script>
+    <script>
+        let labels = @json(array_keys($chart_data));
+        let values = @json(array_values($chart_data));
+        new Chart(document.getElementById("line_chart"), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    label: false,
+                    borderColor: "#3e95cd",
+                    fill: false
+                }],
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                label: {
+                    display: false
+                },
+            }
+        });
     </script>
     <script src="/plugins/jqvmap/maps/jquery.vmap.world.js"></script>
 @endsection

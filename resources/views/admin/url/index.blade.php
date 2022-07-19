@@ -223,8 +223,12 @@
             });
         })
         function showMassDeleteModal(){
-            let modal = $("#mass-delete-modal");
-            modal.modal();
+            if(document.querySelectorAll(".del_check:checked").length === 0){
+                toastr.error("Не выброно не одной ссылки для массого удоления");
+            }else{
+                let modal = $("#mass-delete-modal");
+                modal.modal();
+            }
         }
         function massDelete(){
             let form = document.getElementById("from_mass_delete");

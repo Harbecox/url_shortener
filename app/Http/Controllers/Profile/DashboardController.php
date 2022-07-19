@@ -24,15 +24,15 @@ class DashboardController extends Controller
         $data['urls_count'] = $urls->count();
         $data['url'] = $urls->first();
         $data['is_single'] = false;
-        $data['chart_data'] = $this->getChartData();
-        return view("profile.dashboard",$data);
-    }
-
-    function getChartData(){
         $aliases = Url::query()->where("user_id",Auth::user()->id)->with("alias")->get()
             ->map(function ($url){
                 return $url->alias->alias;
             });
+        $data['chart_data'] = $this->getChartData($aliases);
+        return view("profile.dashboard",$data);
+    }
+
+    function getChartData($aliases){
         $dates = [];
         for($i = 29;$i > -1;$i--){
             $date = Carbon::now()->subDays($i)->format("Y-m-d");
@@ -62,6 +62,7 @@ class DashboardController extends Controller
         $data['urls_count'] = $urls->count();
         $data['url'] = $urls->first();
         $data['is_single'] = true;
+        $data['chart_data'] = $this->getChartData([$alias]);
         return view("profile.dashboard",$data);
     }
 

@@ -152,7 +152,26 @@ class UrlController extends Controller
         $data['urls_count'] = $urls->count();
         $data['url'] = $urls->first();
         $data['is_single'] = true;
+        $data['chart_data'] = $this->getChartData([$alias]);
         return view("admin.url.show",$data);
+    }
+
+    function getChartData($aliases){
+        $dates = [];
+        for($i = 29;$i > -1;$i--){
+            $date = Carbon::now()->subDays($i)->format("Y-m-d");
+            $dates[$date] = [];
+        }
+        Visit::query()->whereIn("alias",$aliases)
+            ->whereDate("created_at",">",Carbon::now()->subMonth())
+            ->get()->map(function ($visit) use (&$dates){
+                $date = Carbon::make($visit['created_at'])->startOfDay()->format("Y-m-d");
+                $dates[$date][] = $visit;
+            });
+        foreach ($dates as &$date){
+            $date = count($date);
+        }
+        return $dates;
     }
 
     function getAliasVisits($urls_aliases){

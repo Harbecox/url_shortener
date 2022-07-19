@@ -30,8 +30,8 @@ class VisitSeeder extends Seeder
         $aliases = Alias::all();
         foreach ($aliases as $alias){
             $visits = [];
-            for($i=0;$i<rand(1,10);$i++){
-                $date = $faker->dateTimeBetween("-3 days");
+            for($i=0;$i<rand(100,1000);$i++){
+                $date = $faker->dateTimeBetween("-45 days");
                 $visits[] = [
                     "country_code" => $faker->countryCode(),
                     "ip" => $faker->ipv4(),

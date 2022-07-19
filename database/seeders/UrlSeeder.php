@@ -20,21 +20,21 @@ class UrlSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        $users = User::query()->select(['id'])->where("role", "user")->get();
-        foreach ($users as $user) {
-            for($i = 0;$i < rand(10,100);$i++){
-                $alias = Alias::createUnique();
-                $url = Url::create([
-                    "user_id" => $user->id,
-                    "created_at" => $faker->dateTimeBetween("-45 days")
-                ]);
-                Alias::create([
-                    "alias" => $alias,
-                    "url" => $faker->url(),
-                    "subject_id" => $url->id,
-                    "created_at" => $faker->dateTimeBetween("-45 days")
-                ]);
-            }
+        $user = User::query()->select(['id'])->where("name", "test")->first();
+
+        for ($i = 0; $i < rand(10, 100); $i++) {
+            $alias = Alias::createUnique();
+            $url = Url::create([
+                "user_id" => $user->id,
+                "created_at" => $faker->dateTimeBetween("-45 days")
+            ]);
+            Alias::create([
+                "alias" => $alias,
+                "url" => $faker->url(),
+                "subject_id" => $url->id,
+                "created_at" => $faker->dateTimeBetween("-45 days")
+            ]);
         }
+
     }
 }

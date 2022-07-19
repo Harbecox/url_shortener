@@ -13,6 +13,10 @@ class UserBlockedMiddleware
         if(!Auth::check()){
             return response()->redirectToRoute("login");
         }
-        return Auth::user()->blocked ? route("login") : $next($request);
+        if(Auth::user()->blocked){
+            Auth::guard()->logout();
+            return response()->redirectToRoute("login")->with("warning" ,__("auth.block"));
+        }
+        return $next($request);
     }
 }

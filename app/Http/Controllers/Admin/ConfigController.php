@@ -10,6 +10,7 @@ use App\Models\FeedbackEmail;
 use App\Models\ForbiddenWord;
 use App\Models\Url;
 use App\Models\User;
+use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,8 +50,13 @@ class ConfigController extends Controller
         $from = Carbon::make($request->get("after"));
         $urls = Url::query()->where("created_at","<",$from)->get();
         foreach ($urls as $url){
+            $aliases = Alias::query()->where("subject_id",$url->id)->where("type","url")
+                ->get()->map(function ($alias){
+                    return $alias->asias;
+                });
+            Visit::query()->whereIn("alias",$aliases)->delete();
+            Alias::query()->whereIn("alias",$aliases)->delete();
             $url->delete();
-            Alias::query()->where("subject_id",$url->id)->where("type","url")->delete();
         }
         return back();
     }
