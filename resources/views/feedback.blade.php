@@ -3,7 +3,7 @@
 @section("content")
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-6 col-12 offset-3">
+            <div class="col-md-6 col-12 offset-md-3">
                 <h1 class="text-center">Поддержка, обратная связь</h1>
                 <h3 class="text-center">Есть вопрос? Мы будем рады помочь Вам.</h3>
                 <form method="POST" class="py-5">

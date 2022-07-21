@@ -46,7 +46,7 @@
                             <form  method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label class="form-label">Page url ( ex. policy )   </label>
+                                    <label class="form-label">Page url ( пример: feedback или dashboard/api )   </label>
                                     <input class="form-control" name="page">
                                 </div>
                                 <div class="form-group">
