@@ -32,7 +32,7 @@ class UrlGurstRequest extends FormRequest
     function messages()
     {
         return [
-            "url" => "Ссылка не валидна или запрещена"
+            "url" => "Ссылка не валидна, запрещена или повторяется"
         ];
     }
 }

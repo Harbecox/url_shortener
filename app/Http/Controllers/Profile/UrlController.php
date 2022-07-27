@@ -100,6 +100,10 @@ class UrlController extends Controller
     public function store(UrlStoreRequest $request)
     {
         $data = $request->validated();
+        $exists = Auth::user()->urls()->where("url",$request->get("url"))->count() > 0;
+        if($exists){
+            return back()->with("error","Ссылка не валидна, запрещена или повторяется");
+        }
         if(!$data['alias']){
             $data['alias'] = Alias::createUnique();
         }

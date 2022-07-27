@@ -23,6 +23,10 @@ class IndexController extends Controller
 
     function create(UrlGurstRequest $request){
         $urls = json_decode(Cookie::get("urls","[]"),true);
+        $exists = collect($urls)->where("url",$request->get("url"))->count() > 0;
+        if($exists){
+            return back()->with("error","Ссылка не валидна, запрещена или повторяется");
+        }
         $alias = new Alias();
         $alias['alias'] = Alias::createUnique();
         $alias['url'] = $request->get("url");
