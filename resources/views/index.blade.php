@@ -100,6 +100,10 @@
             new QRCode(qrCodeElem, url);
             modal.find(".share-button").each(function (i,e){
                 $(e).attr("data-url",url);
+                if($(e).hasClass("telegram")){
+                    let href = 'https://t.me/share/url?url=' + url + '&text=Urlbit.ru%20short%20link%20service'
+                    $(e).attr("href",href);
+                }
             })
             modal.modal();
         }
