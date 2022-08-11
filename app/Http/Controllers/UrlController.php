@@ -57,6 +57,6 @@ class UrlController extends Controller
                 }
             }
         }
-        return redirect($url);
+        return redirect($url,301);
     }
 }
