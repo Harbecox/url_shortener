@@ -29,6 +29,8 @@ class DashboardController extends Controller
                 return $url->alias->alias;
             });
         $data['chart_data'] = $this->getChartData($aliases);
+        file_put_contents("test.json",json_encode($data));
+        exit;
         return view("profile.dashboard",$data);
     }
 

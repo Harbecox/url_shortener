@@ -171,7 +171,6 @@
     <script>
         let countries = @json($countries);
         setTimeout(function () {
-
             let counts = [];
             for (let code in countries) {
                 if (parseInt(countries[code].count)) {
@@ -180,7 +179,6 @@
             }
             let min = Math.min.apply(Math, counts);
             let max = Math.max.apply(Math, counts);
-            console.log(min,max);
             for (let code in countries) {
                 let count = countries[code].count;
                 let k = 100 / (max - min);
@@ -190,7 +188,6 @@
                 }else{
                     color = color.toString(16);
                 }
-                //console.log(count," - ",color);
                 color = "#" + color + color + color;
                 let elem = document.getElementById("jqvmap1_" + code);
                 if(elem){
@@ -259,8 +256,6 @@
             })
         }
 
-    </script>
-    <script>
         let labels = @json(array_keys($chart_data));
         let values = @json(array_values($chart_data));
         new Chart(document.getElementById("line_chart"), {
